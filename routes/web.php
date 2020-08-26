@@ -24,3 +24,6 @@ Route::get('/news', 'NavigationController@news')->name('news');
 Route::get('/opinion', 'NavigationController@opinion')->name('opinion');
 Route::get('/contact', 'NavigationController@contact')->name('contact');
 Route::get('/support', 'NavigationController@support')->name('support');
+
+// Admin
+Route::get('/course-manage', 'Admin\CourseManageController@courseManage')->name('courseManage');
