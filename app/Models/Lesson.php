@@ -12,6 +12,7 @@ class Lesson extends BaseModel
         'desciption',
         'total_view',
         'video_id',
+        'exercise_id',
         'content',
     ];
 }

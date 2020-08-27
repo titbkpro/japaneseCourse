@@ -19,6 +19,7 @@ class CreateLessonsTable extends Migration
             $table->text('desciption');
             $table->integer('total_view');
             $table->unsignedInteger('video_id');
+            $table->unsignedInteger('exercise_id');
             $table->text('content');
             $table->timestamps();
             $table->softDeletes();
