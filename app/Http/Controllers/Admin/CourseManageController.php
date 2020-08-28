@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Services\Admin\CourseManageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class CourseManageController extends Controller
 {
+    public $service;
     /**
      * Create a new controller instance.
      *
@@ -15,7 +17,7 @@ class CourseManageController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->service = new CourseManageService();
     }
 
     /**
@@ -23,8 +25,14 @@ class CourseManageController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function courseManage()
+    public function index()
     {
-        return view('admin\admin-home');
+        return view('admin/admin-home');
+    }
+
+    public function getAllCourses()
+    {
+        $courses = $this->service->getAllCousre()->toArray();
+        return view('admin/course', ['courses' => $courses]);
     }
 }
