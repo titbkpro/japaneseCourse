@@ -26,6 +26,6 @@ Route::get('/contact', 'NavigationController@contact')->name('contact');
 Route::get('/support', 'NavigationController@support')->name('support');
 
 // Admin
-Route::get('/course-manage', 'Admin\CourseManageController@index')->name('index');
-Route::get('admin/course', 'Admin\CourseManageController@getAllCourses')->name('admin.course.all');
+Route::resource('course-manage', 'Admin\CourseManageController');
+
 

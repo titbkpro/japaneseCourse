@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Course\StoreRequest;
+use App\Http\Requests\Course\UpdateRequest;
 use App\Http\Services\Admin\CourseManageService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 
 class CourseManageController extends Controller
 {
@@ -27,12 +27,31 @@ class CourseManageController extends Controller
      */
     public function index()
     {
-        return view('admin/admin-home');
+        $courses = $this->service->getAllCourses();
+        return view('admin/course-management/single-course-management', compact('courses'));
     }
 
-    public function getAllCourses()
+    public function show($courseId)
     {
-        $courses = $this->service->getAllCousre()->toArray();
-        return view('admin/course', ['courses' => $courses]);
+        $course = $this->service->getCourseById($courseId);
+        return view('admin/course-management/single-course-management', ['$course' => $course]);
+    }
+
+    public function store(StoreRequest $request)
+    {
+        $this->service->addNewCourse($request->all());
+        return  redirect('/course-manage');
+    }
+
+    public function update(UpdateRequest $request)
+    {
+        $this->service->updateCourse($request->all())->toArray();
+        return  redirect()->route('index');
+    }
+
+    public function destroy($courseId)
+    {
+        $this->service->deleteCourse($courseId);
+        return  redirect()->route('index');
     }
 }
