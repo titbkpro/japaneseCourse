@@ -20,7 +20,7 @@ class CreateCoursesTable extends Migration
             $table->string('fee', 45);
             $table->unsignedInteger('image_id');
             $table->text('description');
-            $table->string('sale off', 45);
+            $table->string('sale off', 45)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

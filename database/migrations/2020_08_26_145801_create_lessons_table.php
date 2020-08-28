@@ -17,8 +17,8 @@ class CreateLessonsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('desciption');
-            $table->integer('total_view');
-            $table->unsignedInteger('video_id');
+            $table->integer('total_view')->default(0);
+            $table->unsignedInteger('video_id')->nullable();
             $table->unsignedInteger('exercise_id');
             $table->text('content');
             $table->timestamps();
