@@ -17,7 +17,7 @@ class CreateNewsPostsTable extends Migration
             $table->increments('id');
             $table->string('description');
             $table->unsignedInteger('news_category_id');
-            $table->unsignedInteger('image_id');
+            $table->unsignedInteger('image_id')->nullable();
             $table->string('title');
             $table->text('content');
             $table->timestamps();

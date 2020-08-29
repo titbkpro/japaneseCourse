@@ -18,7 +18,7 @@ class CreateStudentContactsTable extends Migration
             $table->string('name');
             $table->string('phone_number', 11);
             $table->string('email');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

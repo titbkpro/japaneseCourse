@@ -17,7 +17,7 @@ class CreateAnswersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('question_id');
             $table->unsignedInteger('answer');
-            $table->boolean('is_right_answer');
+            $table->boolean('is_right_answer')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
