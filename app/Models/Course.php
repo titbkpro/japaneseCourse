@@ -13,6 +13,6 @@ class Course extends BaseModel
         'fee',
         'image_id',
         'description',
-        'sale off',
+        'sale_off',
     ];
 }
