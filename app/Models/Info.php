@@ -11,4 +11,12 @@ class Info extends BaseModel
         'description',
         'name',
     ];
+
+    /**
+     * Get all info details of info
+     */
+    public function infoDetails()
+    {
+        return $this->hasMany(InfoDetail::class);
+    }
 }
