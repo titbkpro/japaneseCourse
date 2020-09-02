@@ -57,7 +57,7 @@ class InformationDetailService extends BaseService
      *
      * @return Info
      */
-    public function deleteInfoDetail($id, $inputs)
+    public function deleteInfoDetail($id)
     {
         $infoDetail = InfoDetail::findOrFail($id);
 
@@ -66,5 +66,14 @@ class InformationDetailService extends BaseService
         } else {
             throw new WebException('delete_error');
         }
+    }
+    /**
+     * Get info detail
+     *
+     * @return Info
+     */
+    public function showInfoDetail($id)
+    {
+        return InfoDetail::findOrFail($id);
     }
 }

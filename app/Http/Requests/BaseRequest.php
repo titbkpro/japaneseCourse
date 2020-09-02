@@ -16,12 +16,12 @@ abstract class BaseRequest extends FormRequest
     /**
      * @inheritdoc
      */
-    protected function failedValidation(Validator $validator)
-    {
-        $errors = (new ValidationException($validator))->errors();
-        $messages = !empty($errors) ? $errors : __('validation.missing_field');
-        Log::error($messages);
+    // protected function failedValidation(Validator $validator)
+    // {
+    //     $errors = (new ValidationException($validator))->errors();
+    //     $messages = !empty($errors) ? $errors : __('validation.missing_field');
+    //     Log::error($messages);
 
-        throw new WebException('store_error', null, $messages);
-    }
+    //     throw new WebException('store_error', null, $messages);
+    // }
 }

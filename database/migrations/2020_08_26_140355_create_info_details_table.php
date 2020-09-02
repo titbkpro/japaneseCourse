@@ -18,7 +18,7 @@ class CreateInfoDetailsTable extends Migration
             $table->unsignedInteger('info_id');
             $table->string('title');
             $table->text('content');
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

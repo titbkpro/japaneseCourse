@@ -28,13 +28,13 @@ class InformationController extends Controller
     {
         $informations = $this->service->getAllInformations();
 
-        return view('admin/informations', ['informations' => $informations]);
+        return view('admin/information/informations', ['informations' => $informations]);
     }
 
     public function store(StoreRequest $request)
     {
         $this->service->store($request->all());
-        return redirect('admin/informations');
+        return redirect('admin/information/informations');
     }
 
     public function update(StoreRequest $request, $id)
@@ -47,6 +47,6 @@ class InformationController extends Controller
         $info = $this->service->show($id);
         $data = new InformationResource($info);
 
-        return view('admin/information', ['infoDetail' => $data]);
+        return view('admin/information/information', ['infoDetail' => $data]);
     }
 }

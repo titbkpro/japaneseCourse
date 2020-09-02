@@ -15,10 +15,6 @@ class StoreRequest extends BaseRequest
     {
         return [
             'name' => 'required|max:255',
-            'info_details' => 'required|array',
-            'info_details.*.title' => 'required|max:255',
-            'info_details.*.content' => 'required',
-            'info_details.*.status' => 'boolean',
         ];
     }
 }
