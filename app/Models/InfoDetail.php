@@ -11,5 +11,11 @@ class InfoDetail extends BaseModel
         'info_id',
         'title',
         'content',
+        'status',
     ];
+
+    public function info()
+    {
+        return $this->belongsTo(Info::class);
+    }
 }
