@@ -27,6 +27,7 @@ Route::get('/support', 'NavigationController@support')->name('support');
 
 // Admin
 Route::group(['prefix' => 'admin'], function () {
+    Route::resource('single-course-management', 'Admin\SingleCourseManageController');
     Route::resource('course-manage', 'Admin\CourseManageController');
     Route::resource('informations', 'Admin\InformationController');
     Route::resource('information-details', 'Admin\InformationDetailsController');

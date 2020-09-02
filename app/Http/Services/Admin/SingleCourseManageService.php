@@ -4,29 +4,26 @@ namespace App\Http\Services\Admin;
 
 use App\Exceptions\WebException;
 use App\Models\Course;
-use Illuminate\Support\Facades\Log;
 
-class CourseManageService extends BaseService
+class SingleCourseManageService extends BaseService
 {
-    public function getAllCourses()
+    public function getAllSingleCourses()
     {
         return Course::all();
     }
 
-    public function getCourseById($courseId)
+    public function getSingleCourseById($courseId)
     {
         return Course::find($courseId);
     }
 
-    public function addNewCourse($courseInput)
+    public function addNewSingleCourse($courseInput)
     {
         Course::create($courseInput);
     }
 
-    public function updateCourse($courseInput, $courseId)
+    public function updateSingleCourse($courseInput, $courseId)
     {
-        Log::error("update course", $courseInput);
-
         $course = Course::find($courseId);
         if($course) {
             $course->update($courseInput);
@@ -35,11 +32,13 @@ class CourseManageService extends BaseService
         }
     }
 
-    public function deleteCourse($id)
+    public function deleteSingleCourse($id)
     {
-        $course = Course::find($id);
+        $course = Course::findOrFail($id);
         if ($course) {
             $course->delete();
+        } else {
+            throw new WebException('delete_single_course_error');
         }
     }
 }

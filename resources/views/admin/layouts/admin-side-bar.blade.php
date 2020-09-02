@@ -28,10 +28,10 @@
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-book"></i>Khóa học <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="admin/lesson">Quản lý bài học</a></li>
-                            <li><a href="admin/course">Quản lý khóa học đơn</a></li>
-                            <li><a href="admin/combo">Quản lý khóa học combo</a></li>
-                            <li><a href="admin/unit">Quản lý Unit</a></li>
+                            <li><a href="./admin/lesson">Quản lý bài học</a></li>
+                            <li><a href="./single-course-management">Quản lý khóa học đơn</a></li>
+                            <li><a href="./admin/combo-course-management">Quản lý khóa học combo</a></li>
+                            <li><a href="./admin/unit-management">Quản lý Unit</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-video-camera"></i> Video <span class="fa"></span></a>
@@ -47,7 +47,9 @@
             <div class="menu_section">
                 <h3>Quản lý thông tin</h3>
                 <ul class="nav side-menu">
-                    <li><a><i class="fa fa-map-marker"></i>Địa chỉ <span class="fa"></span></a>
+                    <li><a href="./admin/informations"><i class="fa fa-map-marker"></i>Địa chỉ <span class="fa"></span></a>
+                    </li>
+                    <li><a href="./admin/information-details"><i class="fa fa-map-marker"></i>Địa chỉ chi tiết<span class="fa"></span></a>
                     </li>
                     <li><a><i class="fa fa-users"></i> Người dùng <span class="fa fa-chevron-down"></span></a>
                     </li>
