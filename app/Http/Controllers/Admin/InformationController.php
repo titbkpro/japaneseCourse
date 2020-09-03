@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\InformationResource;
 use App\Http\Services\Admin\InformationService;
 use App\Http\Requests\Admin\Information\StoreRequest;
 
@@ -22,7 +21,7 @@ class InformationController extends Controller
     }
 
     /**
-     * 
+     * Index
      */
     public function index()
     {
@@ -31,22 +30,33 @@ class InformationController extends Controller
         return view('admin/information/informations', ['informations' => $informations]);
     }
 
+    /**
+     * store
+     */
     public function store(StoreRequest $request)
     {
         $this->service->store($request->all());
-        return redirect('admin/information/informations');
+
+        return redirect('admin/informations');
     }
 
+    /**
+     * update
+     */
     public function update(StoreRequest $request, $id)
     {
-        $this->service->update($id, $request->all());    
+        $this->service->update($id, $request->all());
+
+        return redirect('admin/informations');
     }
 
-    public function show($id)
+    /**
+     * destroy
+     */
+    public function destroy($id)
     {
-        $info = $this->service->show($id);
-        $data = new InformationResource($info);
+        $this->service->delete($id);
 
-        return view('admin/information/information', ['infoDetail' => $data]);
+        return redirect('admin/informations');
     }
 }
