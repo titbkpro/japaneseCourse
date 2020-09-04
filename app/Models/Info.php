@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 /**
  * Info model
  */
 class Info extends BaseModel
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'description',
         'name',
