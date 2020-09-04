@@ -1,251 +1,352 @@
-@extends('admin.layouts.admin-main-page')
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('head-part')
+    <title>Gentelella Alela! | </title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
-    <link href="{{ asset('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="{{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-@endsection
+   <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
-@section('content-part')
-<!-- page content -->
-<div class="right_col" role="main">
-  <div class="">
-    <div class="page-title">
-      <div class="title_left">
-        <h3>Thông tin</h3>
-      </div>
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+  </head>
 
-      <div class="title_right">
-        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Go!</button>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            </div>
 
-    <div class="clearfix"></div>
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Danh sách các thông tin</h2>
-            <ul class="nav navbar-right panel_toolbox" style="margin-right: -50px;">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-            </ul>
             <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <div class="table-responsive">
-              <table class="table table-striped jambo_table bulk_action">
-                <thead>
-                  <tr class="headings">
-                    <th class="column-title">Id </th>
-                    <th class="column-title">Tên thông tin </th>
-                    <th class="column-title">Ngày tạo </th>
-                    <th class="column-title">Ngày cập nhật </th>
-                    <th class="column-title no-link last"><span class="nobr">Action</span>
-                    </th>
-                    <th class="bulk-actions" colspan="7">
-                      <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                    </th>
-                  </tr>
-                </thead>
 
-                <tbody>
-                  @foreach($informations as $information)
-                  <tr class="even pointer">
-                    <td class=" ">{{$information['id']}}</td>
-                    <td class=" ">{{$information['name']}} </td>
-                    <td class=" ">{{$information['created_at']}}</i></td>
-                    <td class=" ">{{$information['updated_at']}}</td>
-                    <td class=" last">
-                      <button type="button" class="btn btn-round btn-info btn-xs" onclick='editForm(<?php echo json_encode($information); ?>)'>Chỉnh sửa</button>
-                      <button type="button" class="btn btn-round btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" onclick='deleteData(<?php echo json_encode($information); ?>)'>Xóa</button>
-                    </td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>John Doe</h2>
+              </div>
             </div>
-          </div>
-          <!-- add new information button -->
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_content">
-                <div class="form-group">
-                    <div class="col-md-6 col-md-offset-0">
-                        <button type="button" onclick='openForm("add-information")' class="btn btn-primary">Thêm mới thông tin</button>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-home"></i> Khóa học <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="admin/course">Quản lý khóa học</a></li>
+                                    <li><a href="admin/lesson">Quản lý bài học</a></li>
+                                    <li><a href="admin/combo">Quản lý Combo khóa học</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-edit"></i> Video <span class="fa fa-chevron-down"></span></a>
+                            </li>
+                            <li><a><i class="fa fa-desktop"></i> Hình ảnh <span class="fa fa-chevron-down"></span></a>
+                            </li>
+                            <li><a><i class="fa fa-table"></i> Audio <span class="fa fa-chevron-down"></span></a>
+                            </li>
+                            <li><a><i class="fa fa-bar-chart-o"></i> Quản lý bài post <span class="fa fa-chevron-down"></span></a>
+                            </li>
+                        </ul>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <div id="add-information" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
-          <div class="x_panel">
-            <div class="x_content">
-              <form class="form-horizontal form-label-left" action="{{route('informations.store')}}" method="POST" role="form">
-              {{ csrf_field() }}
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên thông tin <span class="required">*</label>
-                  <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" name="name">
-                  </div>
-                </div>
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                  <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                    <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
-                    <button type="submit" class="btn btn-success">Tạo</button>
-                    <button type="button" onclick='closeForm("add-information")' class="btn btn-dark">Đóng form</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div id="edit-information" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
-          <div class="x_panel">
-            <div class="x_content">
-              <form id="edit-info-form" class="form-horizontal form-label-left" action="" method="POST" role="form">
-                {{ csrf_field() }}
-                {{ method_field('PUT') }}
-                <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12">ID</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" readonly name="id" id="id">
+                    <div class="menu_section">
+                        <h3>Quản lý thông tin</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-clone"></i>Địa chỉ <span class="fa fa-chevron-down"></span></a>
+                            </li>
+                            <li><a><i class="fa fa-bug"></i> Người dùng <span class="fa fa-chevron-down"></span></a>
+                            </li>
+                            <li><a><i class="fa fa-windows"></i> Feedback <span class="fa fa-chevron-down"></span></a>
+                            </li>
+                        </ul>
                     </div>
-                  </div>
-                <div class="form-group">
-                  <label class="control-label col-md-2 col-sm-2 col-xs-122">Tên thông tin <span class="required">*</label>
-                  <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" name="name" id=name>
-                  </div>
+
                 </div>
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                  <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                    <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
-                    <button type="submit" class="btn btn-success">Cập nhật</button>
-                    <button type="button" onclick='closeForm("edit-information")' class="btn btn-dark">Đóng form</button>
-                  </div>
-                </div>
-              </form>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
             </div>
+            <!-- /menu footer buttons -->
           </div>
         </div>
-        <!-- delete information dialog -->
-        <div class="modal" tabindex="-1" role="dialog" id="delete-modal">
-            <div class="modal-dialog" stype="width:600px;" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">XÁC NHẬN XÓA</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="images/img.jpg" alt="">John Doe
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:;"> Profile</a></li>
+                    <li>
+                      <a href="javascript:;">
+                        <span class="badge bg-red pull-right">50%</span>
+                        <span>Settings</span>
+                      </a>
+                    </li>
+                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green">6</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Thông tin</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
                 </div>
-                <form action="" id="deleteForm" method="post">
-                  {{ csrf_field() }}
-                  {{ method_field('DELETE') }}
-                  <div class="modal-body">
-                    <p>Những dữ liệu liên quan sẽ bị xóa, bạn có chắc chắn muốn xóa thông tin có tên là <lable id="infoName"></lable>?</p>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Danh sách các thông tin</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
                   </div>
-                  <div class="modal-footer">
-                    <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
-                    <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
+
+                  <div class="x_content">
+                    <div class="table-responsive">
+                      <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                          <tr class="headings">
+                            <th>
+                              <input type="checkbox" id="check-all" class="flat">
+                            </th>
+                            <th class="column-title">Id </th>
+                            <th class="column-title">Tên thông tin </th>
+                            <th class="column-title">Ngày tạo </th>
+                            <th class="column-title">Ngày update </th>
+                            <th class="column-title no-link last"><span class="nobr">Action</span>
+                            </th>
+                            <th class="bulk-actions" colspan="7">
+                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          @foreach($informations as $information)
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" ">{{$information['id']}}</td>
+                            <td class=" ">{{$information['name']}} </td>
+                            <td class=" ">{{$information['created_at']}} <i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">{{$information['updated_at']}}</td>
+                            <td class=" last"><a href="#">Chi tiết</a>
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Tạo mới thông tin</h2>
+                    <ul class="nav navbar-right panel_toolbox" style="margin-right: -15px;">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
                   </div>
-                </form>
+                  <div class="x_content">
+                    <br />
+                    <form class="form-horizontal form-label-left" action="{{route('informations.store')}}" method="POST" role="form">
+                    {{ csrf_field() }}
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên thông tin <span class="required">*</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" class="form-control" name="name">
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                          <button type="reset" class="btn btn-primary">Xóa nội dung nhập</button>
+                          <button type="submit" class="btn btn-success">Tạo</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+						
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
       </div>
     </div>
-  </div>
-</div>
-<!-- /page content -->
-@endsection
 
-@section('modal-part')
-
-@endsection
-
-@section('other-part')
-
-@endsection
-
-@section('script-part')
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
-    <script src="{{ asset('vendors/iCheck/icheck.min.js') }}"></script>
-    <!-- Datatables -->
-    <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
-    <script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
-    <script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="../vendors/iCheck/icheck.min.js"></script>
 
-    <script>
-      window.onload = function() {
-        showMessageError();
-      };
-
-      function showMessageError()
-      {
-        if ($("#is_store_error").value == 1) {
-          openForm("add-information");
-        }
-      }
-
-      function openForm($id) {
-        closeForm("edit-information");
-        document.getElementById($id).style.display = "block";
-      }
-
-      function closeForm($id) {
-        document.getElementById($id).style.display = "none";
-      }
-
-      function editForm(information) {
-        closeForm("add-information");
-        var id =  information["id"];
-        var route = "{{route('informations.update', ':id')}}";
-        $("#edit-info-form").attr("action", route.replace(":id", id));
-        $("#id").val(id);
-        $("#name").val(information["name"]);
-
-        $("#edit-information").css({ display: "block" });
-      }
-
-      function deleteData(information)
-      {
-          var id = information["id"];
-          var url = '{{ route("informations.destroy", ":id") }}';
-          url = url.replace(':id', id);
-          $("#deleteForm").attr('action', url);
-          $("#deleteForm").modal('show');
-          $("#infoName").text(information["name"]);
-      }
-
-      function formSubmit()
-      {
-          $("#deleteForm").submit();
-      }
-    </script>
-@endsection
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+  </body>
+</html>

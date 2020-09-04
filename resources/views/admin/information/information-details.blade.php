@@ -72,9 +72,9 @@
                     <td class=" ">{{$informationDetail['status']['name']}} </td>
                     <td class=" ">{{$informationDetail['updated_at']}}</td>
                     <td class=" last">
-                      <button type="button" class="btn btn-round btn-default btn-xs" data-toggle="modal" data-target="#show-modal"  onclick='showFormDetail(<?php echo json_encode($informationDetail); ?>)'>Chi tiết</button>
+                    <button type="button" class="btn btn-round btn-default btn-xs" data-toggle="modal" data-target="#show-modal"  onclick='showFormDetail(<?php echo json_encode($informationDetail); ?>)' href="javascript:;">Chi tiết</button>
                       <button type="button" class="btn btn-round btn-info btn-xs" onclick='editForm(<?php echo json_encode($informationDetail); ?>)'>Chỉnh sửa</button>
-                      <button type="button" class="btn btn-round btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" onclick='deleteData(<?php echo json_encode($informationDetail); ?>)'>Xóa</button>
+                      <a type="button" class="btn btn-round btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" onclick='deleteData(<?php echo $informationDetail["id"]; ?>)' href="javascript:;">Xóa</a>
                     </td>
                   </tr>
                   @endforeach
@@ -127,7 +127,7 @@
                       <label class="control-label col-md-2 col-sm-2 col-xs-12">Nội dung <span class="required">*</span>
                       </label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
-                        <textarea class="form-control" id="summary-ckeditor" name="content"></textarea>
+                        <textarea class="form-control" rows="5"  name = "content"></textarea>
                         @error('content')
                             <div class="error">{{ $message }}</div>
                         @enderror
@@ -248,6 +248,10 @@
                       <td id="titleDetail"></td>
                     </tr>
                     <tr>
+                      <td><label class="control-label">Nội dung:</label></td>
+                      <td id="contentDetail"></td>
+                    </tr>
+                    <tr>
                       <td><label class="control-label">Trạng thái hiển thị:</label></td>
                       <td id="statusDetail"></td>
                     </tr>
@@ -256,11 +260,6 @@
                       <td id="updateDetail"></td>
                     </tr>
                   </table>
-                  <div>
-                    <label class="control-label">Nội dung:</label>
-                  </div>
-                  <div id="contentDetail">
-                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type=button class="btn btn-default" data-dismiss="modal">Close</button>
@@ -278,16 +277,17 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
-                  <form action="" id="deleteForm" method="post">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <p>Bạn có chắc chắn muốn xóa bài đăng có tiêu đề là <lable id="infoDetailName"></lable>?</p>
-                    <div class="modal-footer">
-                      <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
-                      <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
-                    </div>
-                  </form>
+                <form action="" id="deleteForm" method="post">
+                  {{ csrf_field() }}
+                  {{ method_field('DELETE') }}
+                  <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa bài đăng có tên là  ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -326,10 +326,6 @@
     <script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script>
-    CKEDITOR.replace('summary-ckeditor');
-    </script>
 
     <script>
       window.onload = function() {
@@ -362,21 +358,21 @@
         $("#title").val(informationDetail["title"]);
         $("#content").val(informationDetail["content"]);
         if (informationDetail["status"]["id"] == 1) {
-          $("#statusShow").iCheck("check");
+          $("#statusShow").attr("checked", true);
         } else {
-          $("#statusNotShow").iCheck("check");
+          $("#statusNotShow").attr("checked", true);
         }
 
         $("#edit-information-detail").css({ display: "block" });
       }
 
-      function deleteData(informationDetail)
+      function deleteData(id)
       {
+          var id = id;
           var url = '{{ route("information-details.destroy", ":id") }}';
-          url = url.replace(':id', informationDetail["id"]);
+          url = url.replace(':id', id);
           $("#deleteForm").attr('action', url);
           $("#deleteForm").modal('show');
-          $("#infoDetailName").text(informationDetail["title"]);
       }
 
       function formSubmit()
@@ -391,7 +387,7 @@
         $("#titleDetail").text(informationDetail["title"]);
         $("#contentDetail").text(informationDetail["content"]);
         $("#statusDetail").text(informationDetail["status"]["name"]);
-        $("#updateDetail").html(informationDetail["updated_at"]);
+        $("#updateDetail").text(informationDetail["updated_at"]);
         $("#detail-modal").modal('show');
       }
     </script>
