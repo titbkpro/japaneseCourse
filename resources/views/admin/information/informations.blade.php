@@ -9,6 +9,12 @@
     <link href="{{ asset('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <style>
+      .error {
+        color: red;
+        padding-top: 5px;
+      }
+    </style>
 @endsection
 
 @section('content-part')
@@ -94,10 +100,14 @@
             <div class="x_content">
               <form class="form-horizontal form-label-left" action="{{route('informations.store')}}" method="POST" role="form">
               {{ csrf_field() }}
+              <input type="hidden" name="type" value=1>
                 <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên thông tin <span class="required">*</label>
                   <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                    @error('name')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                   </div>
                 </div>
                 <div class="ln_solid"></div>
@@ -106,6 +116,12 @@
                     <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
                     <button type="submit" class="btn btn-success">Tạo</button>
                     <button type="button" onclick='closeForm("add-information")' class="btn btn-dark">Đóng form</button>
+                    @if($errors->any() && old('type') == 1)
+                      <div class="error" style="padding-top: 10px;">Tạo thông tin thất bại</div>
+                      <script>
+                        document.getElementById("add-information").style.display = "block";
+                      </script>
+                    @endif
                   </div>
                 </div>
               </form>
@@ -118,16 +134,20 @@
               <form id="edit-info-form" class="form-horizontal form-label-left" action="" method="POST" role="form">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
+                <input type="hidden" name="type" value=2>
                 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">ID</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" class="form-control" readonly name="id" id="id">
+                      <input type="text" class="form-control" readonly name="id" id="id" value="{{ old('id') }}">
                     </div>
                   </div>
                 <div class="form-group">
                   <label class="control-label col-md-2 col-sm-2 col-xs-122">Tên thông tin <span class="required">*</label>
                   <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control" name="name" id=name>
+                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
+                    @error('name')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                   </div>
                 </div>
                 <div class="ln_solid"></div>
@@ -136,6 +156,15 @@
                     <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
                     <button type="submit" class="btn btn-success">Cập nhật</button>
                     <button type="button" onclick='closeForm("edit-information")' class="btn btn-dark">Đóng form</button>
+                    @if($errors->any() && old('type') == 2)
+                      <div class="error" style="padding-top: 10px;">Cập nhật thông tin thất bại</div>
+                      <script>
+                        var id = document.getElementById("id").value;
+                        var route = "{{route('informations.update', ':id')}}";
+                        document.getElementById("edit-info-form").action = route.replace(":id", id);
+                        document.getElementById("edit-information").style.display = "block";
+                      </script>
+                    @endif
                   </div>
                 </div>
               </form>
@@ -145,25 +174,25 @@
         <!-- delete information dialog -->
         <div class="modal" tabindex="-1" role="dialog" id="delete-modal">
             <div class="modal-dialog" stype="width:600px;" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">XÁC NHẬN XÓA</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+              <form action="" id="deleteForm" method="post">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">XÁC NHẬN XÓA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <div class="modal-body">
+                      <p>Những dữ liệu liên quan sẽ bị xóa, bạn có chắc chắn muốn xóa thông tin có tên là <lable id="infoName"></lable>?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
+                      <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
+                    </div>
                 </div>
-                <form action="" id="deleteForm" method="post">
-                  {{ csrf_field() }}
-                  {{ method_field('DELETE') }}
-                  <div class="modal-body">
-                    <p>Những dữ liệu liên quan sẽ bị xóa, bạn có chắc chắn muốn xóa thông tin có tên là <lable id="infoName"></lable>?</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
-                    <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
-                  </div>
-                </form>
-              </div>
+              </form>
             </div>
           </div>
       </div>

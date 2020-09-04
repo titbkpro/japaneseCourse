@@ -150,6 +150,7 @@ return [
         'title' => 'Tiêu đề',
         'info_id' => 'Loại thông tin',
         'content' => 'Nội dung',
+        'name' => 'Tên',
     ],
 
 ];

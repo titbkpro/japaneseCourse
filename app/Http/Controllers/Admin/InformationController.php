@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\Admin\InformationService;
 use App\Http\Requests\Admin\Information\StoreRequest;
 
+/**
+ * Class InformationController
+ */
 class InformationController extends Controller
 {
     public $service;

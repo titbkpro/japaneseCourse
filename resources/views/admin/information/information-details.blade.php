@@ -9,6 +9,12 @@
     <link href="{{ asset('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <style>
+      .error {
+        color: red;
+        padding-top: 5px;
+      }
+    </style>
 @endsection
 
 @section('content-part')
@@ -97,16 +103,94 @@
           <div class="clearfix"></div>
           <div id="add-information-detail" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
             <div class="x_panel">
+              <div class="x_content">
+                <form class="form-horizontal form-label-left" action="{{route('information-details.store')}}" method="POST" role="form">
+                {{ csrf_field() }}
+                  <input type="hidden" name="type" value=1>
+                  <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Loại thông tin</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <select class="select2_single form-control" tabindex="-1" name="info_id">
+                        <option></option>
+                        @foreach($informations as $information)
+                        <option value="{{$information['id']}}" @if(old('info_id') == $information['id']) {{ 'selected' }} @endif>{{$information['name']}}</option>
+                        @endforeach
+                      </select>
+                      @error('info_id')
+                          <div class="error">{{ $message }}</div>
+                      @enderror
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Tiêu đề <span class="required">*</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" class="form-control" name="title" value="{{ old('title') }}">
+                      @error('title')
+                          <div class="error">{{ $message }}</div>
+                      @enderror
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Nội dung <span class="required">*</span>
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <textarea class="form-control" id="contentAdd" name="content">{{ old('content') }}</textarea>
+                      @error('content')
+                          <div class="error">{{ $message }}</div>
+                      @enderror
+                    </div>
+                  </div>                    
+                  <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                      Hiển thị
+                    </label>
+
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <div class="checkbox">
+                        <input type="radio" class="flat" name="status" value="1" @if(old('status') == 1) {{ 'checked' }} @endif/> Cho phép
+                      <input type="radio" class="flat" name="status" value="0" @if(old('status') == 0) {{ 'checked' }} @endif/> Không cho phép
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ln_solid"></div>
+                  <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                      <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
+                      <button type="submit" class="btn btn-success">Tạo</button>
+                      <button type="button" onclick='closeForm("add-information-detail")' class="btn btn-dark">Đóng form</button>
+                      @if($errors->any() && old('type') == 1)
+                        <div class="error" style="padding-top: 10px;">Tạo thông tin thất bại</div>
+                        <script>
+                          document.getElementById("add-information-detail").style.display = "block";
+                        </script>
+                      @endif
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- edit information detail -->
+          <div id="edit-information-detail" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
+            <div class="x_panel">
                 <div class="x_content">
-                  <form class="form-horizontal form-label-left" action="{{route('information-details.store')}}" method="POST" role="form">
+                  <form id="edit-info-detail-form" class="form-horizontal form-label-left" action="" method="POST" role="form">
                   {{ csrf_field() }}
+                  {{ method_field('PUT') }}
+                    <input type="hidden" name="type" value=2>
+                    <div class="form-group">
+                      <label class="control-label col-md-2 col-sm-2 col-xs-12">ID</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly name="id" id="id" value="{{ old('id') }}">
+                      </div>
+                    </div>
                     <div class="form-group">
                       <label class="control-label col-md-2 col-sm-2 col-xs-12">Loại thông tin</label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="select2_single form-control" tabindex="-1" name="info_id">
+                        <select class="select2_single form-control" tabindex="-1" name="info_id" id="info_id">
                           <option></option>
                           @foreach($informations as $information)
-                          <option value="{{$information['id']}}">{{$information['name']}}</option>
+                          <option value="{{$information['id']}}" @if(old('info_id') == $information['id']) {{ 'selected' }} @endif>{{$information['name']}}</option>
                           @endforeach
                         </select>
                         @error('info_id')
@@ -117,21 +201,21 @@
                     <div class="form-group">
                       <label class="control-label col-md-2 col-sm-2 col-xs-12">Tiêu đề <span class="required">*</label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" name="title">
-                        @error('title')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
+                        <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
                       </div>
+                      @error('title')
+                          <div class="error">{{ $message }}</div>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <label class="control-label col-md-2 col-sm-2 col-xs-12">Nội dung <span class="required">*</span>
                       </label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
-                        <textarea class="form-control" id="summary-ckeditor" name="content"></textarea>
-                        @error('content')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
+                        <textarea class="form-control" id="contentEdit" name="content">{{ old('content') }}</textarea>
                       </div>
+                      @error('content')
+                          <div class="error">{{ $message }}</div>
+                      @enderror
                     </div>                    
                     <div class="form-group">
                       <label class="control-label col-md-2 col-sm-2 col-xs-12">
@@ -139,76 +223,8 @@
                       </label>
 
                       <div class="col-md-9 col-sm-9 col-xs-12">
-                        <div class="checkbox">
-                          <input type="radio" class="flat" name="status" value="1" checked/> Cho phép
-                        <input type="radio" class="flat" name="status" value="0" /> Không cho phép
-                        </div>
-                      </div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
-                        <button type="submit" class="btn btn-success">Tạo</button>
-                        <button type="button" onclick='closeForm("add-information-detail")' class="btn btn-dark">Đóng form</button>
-                        @if($errors->any())
-                          <input type="hidden" id="is_store_error" value=1>
-                          <div class="error">Tạo thông tin thất bại</div>
-                          <script type="text/javascript">
-                            document.getElementById("add-information-detail").style.display = "block";
-                          </script>
-                        @endif
-                      </div>
-                    </div>
-                  </form>
-                </div>
-            </div>
-          </div>
-          <!-- edit information detail -->
-          <div id="edit-information-detail" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
-            <div class="x_panel">
-                <div class="x_content">
-                  <form id="edit-info-detail-form" class="form-horizontal form-label-left" action="" method="POST" role="form">
-                  {{ csrf_field() }}
-                  {{ method_field('PUT') }}
-                    <div class="form-group">
-                      <label class="control-label col-md-2 col-sm-2 col-xs-12">ID</label>
-                      <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly name="id" id="id">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-md-2 col-sm-2 col-xs-12">Loại thông tin</label>
-                      <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="select2_single form-control" tabindex="-1" name="info_id" id="info_id">
-                          <option></option>
-                          @foreach($informations as $information)
-                          <option value="{{$information['id']}}">{{$information['name']}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-md-2 col-sm-2 col-xs-12">Tiêu đề <span class="required">*</label>
-                      <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" name="title" id="title">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-md-2 col-sm-2 col-xs-12">Nội dung <span class="required">*</span>
-                      </label>
-                      <div class="col-md-9 col-sm-9 col-xs-12">
-                        <textarea class="form-control" rows="5"  name="content" id="content"></textarea>
-                      </div>
-                    </div>                    
-                    <div class="form-group">
-                      <label class="control-label col-md-2 col-sm-2 col-xs-12">
-                        Hiển thị
-                      </label>
-
-                      <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="radio" class="flat" name="status" id="statusShow" value="1"/> Cho phép
-                        <input type="radio" class="flat" name="status" id="statusNotShow" value="0" /> Không cho phép
+                        <input type="radio" class="flat" name="status" id="statusShow" value="1" @if(old('status') == 1) {{ 'checked' }} @endif/> Cho phép
+                        <input type="radio" class="flat" name="status" id="statusNotShow" value="0" @if(old('status') == 0) {{ 'checked' }} @endif/> Không cho phép
                       </div>
                     </div>
                     <div class="ln_solid"></div>
@@ -217,6 +233,15 @@
                         <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
                         <button type="submit" class="btn btn-success">Cập nhật</button>
                         <button type="button" onclick='closeForm("edit-information-detail")' class="btn btn-dark">Đóng form</button>
+                        @if($errors->any() && old('type') == 2)
+                          <div class="error" style="padding-top: 10px;">Cập nhật thông tin thất bại</div>
+                          <script>
+                            var id = document.getElementById("id").value;
+                            var route = "{{route('information-details.update', ':id')}}";
+                            document.getElementById("edit-info-detail-form").action = route.replace(":id", id);
+                            document.getElementById("edit-information-detail").style.display = "block";
+                          </script>
+                        @endif
                       </div>
                     </div>
                   </form>
@@ -259,7 +284,7 @@
                   <div>
                     <label class="control-label">Nội dung:</label>
                   </div>
-                  <div id="contentDetail">
+                  <div id="contentDetail" style="border:1px solid #73879C; padding: 10px;">
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -271,15 +296,15 @@
           <!-- delete information dialog -->
           <div class="modal" tabindex="-1" role="dialog" id="delete-modal">
             <div class="modal-dialog" stype="width:600px;" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">XÁC NHẬN XÓA</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form action="" id="deleteForm" method="post">
+              <form action="" id="deleteForm" method="post">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">XÁC NHẬN XÓA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <p>Bạn có chắc chắn muốn xóa bài đăng có tiêu đề là <lable id="infoDetailName"></lable>?</p>
@@ -287,8 +312,8 @@
                       <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
                       <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
                     </div>
-                  </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -328,21 +353,11 @@
     <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
-    CKEDITOR.replace('summary-ckeditor');
+    CKEDITOR.replace('contentAdd');
+    CKEDITOR.replace('contentEdit');
     </script>
 
     <script>
-      window.onload = function() {
-        showMessageError();
-      };
-
-      function showMessageError()
-      {
-        if ($("#is_store_error").value == 1) {
-          openForm("add-information-detail");
-        }
-      }
-
       function openForm($id) {
         closeForm("edit-information-detail");
         document.getElementById($id).style.display = "block";
@@ -360,7 +375,8 @@
         $("#id").val(id);
         $("#info_id").val(informationDetail["info"]["id"]);
         $("#title").val(informationDetail["title"]);
-        $("#content").val(informationDetail["content"]);
+        CKEDITOR.instances['contentEdit'].setData(informationDetail["content"])
+
         if (informationDetail["status"]["id"] == 1) {
           $("#statusShow").iCheck("check");
         } else {
@@ -389,9 +405,9 @@
         $("#infoDetailIdDetail").text(informationDetail["id"]);
         $("#infoNameDetail").text(informationDetail["info"]["name"]);
         $("#titleDetail").text(informationDetail["title"]);
-        $("#contentDetail").text(informationDetail["content"]);
+        $("#contentDetail").html(informationDetail["content"]);
         $("#statusDetail").text(informationDetail["status"]["name"]);
-        $("#updateDetail").html(informationDetail["updated_at"]);
+        $("#updateDetail").text(informationDetail["updated_at"]);
         $("#detail-modal").modal('show');
       }
     </script>
