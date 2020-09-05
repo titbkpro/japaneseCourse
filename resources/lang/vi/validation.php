@@ -152,6 +152,7 @@ return [
         'content' => 'Nội dung',
         'name' => 'Tên',
         'status' => 'Trạng thái hiển thị',
+        'contact_detail' => 'Nội dung liên hệ',
     ],
 
 ];

@@ -35,7 +35,6 @@ class InformationService extends BaseService
 
             return $info;
         } catch (Exception $e) {
-            DB::rollBack();
             Log::error($e->getMessage());
             throw new WebException('store_error');
         }

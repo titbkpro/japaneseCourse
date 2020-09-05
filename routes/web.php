@@ -30,4 +30,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('course-manage', 'Admin\CourseManageController');
     Route::resource('informations', 'Admin\InformationController');
     Route::resource('information-details', 'Admin\InformationDetailsController');
+    Route::resource('contacts', 'Admin\ContactsController');
 });
