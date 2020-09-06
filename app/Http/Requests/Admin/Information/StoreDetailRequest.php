@@ -17,7 +17,7 @@ class StoreDetailRequest extends BaseRequest
             'info_id' => 'required|integer',
             'title' => 'required|max:255',
             'content' => 'required',
-            'status' => 'boolean',
+            'status' => 'required|boolean',
         ];
     }
 }
