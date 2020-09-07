@@ -153,6 +153,7 @@ return [
         'name' => 'Tên',
         'status' => 'Trạng thái hiển thị',
         'contact_detail' => 'Nội dung liên hệ',
+        'news_category_id' => 'Loại tin tức',
     ],
 
 ];

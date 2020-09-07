@@ -31,4 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('informations', 'Admin\InformationController');
     Route::resource('information-details', 'Admin\InformationDetailsController');
     Route::resource('contacts', 'Admin\ContactsController');
+    Route::resource('student_contacts', 'Admin\StudentContactsController');
+    Route::resource('news_categories', 'Admin\NewsCategoriesController');
+    Route::resource('news_posts', 'Admin\NewsPostsController');
 });
