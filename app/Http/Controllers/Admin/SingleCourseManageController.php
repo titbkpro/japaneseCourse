@@ -33,7 +33,7 @@ class SingleCourseManageController extends Controller
     public function show($courseId)
     {
         $course = $this->service->getSingleCourseById($courseId);
-        return view('admin/single-course-management', ['course' => $course]);
+        return view('admin/course-management/single-course-management', ['course' => $course]);
     }
 
     public function store(StoreRequest $request)

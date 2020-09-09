@@ -11,8 +11,8 @@ class Combo extends BaseModel
         'name',
         'time',
         'fee',
-        'image_id',
         'description',
-        'sale off',
+        'sale_off',
+        'image_id',
     ];
 }

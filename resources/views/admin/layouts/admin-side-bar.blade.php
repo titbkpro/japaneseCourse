@@ -10,7 +10,7 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="images/admin/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="{{ asset('images/admin/img.jpg') }}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
@@ -28,10 +28,10 @@
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-book"></i>Khóa học <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="./admin/lesson">Quản lý bài học</a></li>
+                            <li><a href="./lesson">Quản lý bài học</a></li>
                             <li><a href="./single-course-management">Quản lý khóa học đơn</a></li>
-                            <li><a href="./admin/combo-course-management">Quản lý khóa học combo</a></li>
-                            <li><a href="./admin/unit-management">Quản lý Unit</a></li>
+                            <li><a href="./combo-course-management">Quản lý khóa học combo</a></li>
+                            <li><a href="./unit-management">Quản lý Unit</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-video-camera"></i> Video <span class="fa"></span></a>

@@ -19,17 +19,6 @@
                 <div class="title_left">
                     <h3>Khóa học</h3>
                 </div>
-
-                <div class="title_right">
-                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                              <button class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="clearfix"></div>
@@ -96,151 +85,152 @@
                             </div>
                         </div>
 
-                        <div class="clearfix"></div>
+                    </div>
+                </div>
 
-                        <!-- add new course form -->
-                        <div id="add-course" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
-                            <div class="x_panel">
-                                <div class="x_content">
-                                    <form class="form-horizontal form-label-left" action="{{route('single-course-management.store')}}" method="POST" role="form">
-                                        {{ csrf_field() }}
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên khóa học <span class="required"/>*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="name">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thời gian học <span class="required"/>*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="time">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Học phí <span class="required"/>*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="fee">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả <span class="required"/>*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="description">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giảm giá </label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="sale_off">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh </label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="image_id">
-                                            </div>
-                                        </div>
-                                        <div class="ln_solid"></div>
-                                        <div class="form-group">
-                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                                <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
-                                                <button type="submit" class="btn btn-success">Tạo</button>
-                                                <button type="button" onclick='closeForm("add-course")' class="btn btn-dark">Đóng form</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                <div class="clearfix"></div>
 
-                        <!-- edit course form -->
-                        <div id="edit-course" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
-                            <div class="x_panel">
-                                <div class="x_content">
-                                    <form id="edit-course-form" class="form-horizontal form-label-left" action="" method="POST" role="form">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PUT') }}
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-122">Tên khóa học <span class="required">*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="name" id=name>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thời gian học <span class="required"/>*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="time" id="time">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Học phí <span class="required"/>*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="fee" id="fee">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả <span class="required"/>*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="description" id="description">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giảm giá <span class="required"/>*</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="sale_off" id="sale_off">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh </label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <input type="text" class="form-control" name="image_id" id="image_id">
-                                            </div>
-                                        </div>
-                                        <div class="ln_solid"></div>
-                                        <div class="form-group">
-                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                                <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
-                                                <button type="submit" class="btn btn-success">Cập nhật</button>
-                                                <button type="button" onclick='closeForm("edit-course")' class="btn btn-dark">Đóng form</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- delete course dialog -->
-                        <div class="modal" tabindex="-1" role="dialog" id="delete-modal">
-                            <div class="modal-dialog" stype="width:600px;" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">XÁC NHẬN XÓA</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                <!-- add new course form -->
+                <div id="add-course" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" action="{{route('single-course-management.store')}}" method="POST" role="form">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên khóa học <span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="name">
                                     </div>
-                                    <form action="" id="deleteForm" method="post">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <div class="modal-body">
-                                            <p>Những dữ liệu liên quan sẽ bị xóa, bạn có chắc chắn muốn xóa thông tin có tên là <lable id="infoName"></lable>?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
-                                            <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
-                                        </div>
-                                    </form>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Thời gian học <span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="time">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Học phí <span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="fee">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả <span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="description">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Giảm giá </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="sale_off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="image_id">
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                        <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
+                                        <button type="submit" class="btn btn-success">Tạo</button>
+                                        <button type="button" onclick='closeForm("add-course")' class="btn btn-dark">Đóng form</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+
+                <!-- edit course form -->
+                <div id="edit-course" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form id="edit-course-form" class="form-horizontal form-label-left" action="" method="POST" role="form">
+                                {{ csrf_field() }}
+                                {{ method_field('PUT') }}
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-122">Tên khóa học <span class="required">*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="name" id=name>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Thời gian học <span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="time" id="time">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Học phí <span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="fee" id="fee">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả <span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="description" id="description">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Giảm giá <span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="sale_off" id="sale_off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="image_id" id="image_id">
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                        <button type="reset" class="btn btn-default">Xóa nội dung nhập</button>
+                                        <button type="submit" class="btn btn-success">Cập nhật</button>
+                                        <button type="button" onclick='closeForm("edit-course")' class="btn btn-dark">Đóng form</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <!-- /page content -->
     @endsection
 
     @section('modal-part')
+        <!-- delete course dialog -->
+        <div class="modal" tabindex="-1" role="dialog" id="delete-modal">
+                <div class="modal-dialog" stype="width:600px;" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">XÁC NHẬN XÓA</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="" id="deleteForm" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <div class="modal-body">
+                                <p>Những dữ liệu liên quan sẽ bị xóa, bạn có chắc chắn muốn xóa thông tin có tên là <lable id="infoName"></lable>?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
     @endsection
 

@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('time', 45);
             $table->string('fee', 45);
-            $table->unsignedInteger('image_id');
+            $table->unsignedInteger('image_id')->nullable();;
             $table->text('description');
             $table->string('sale_off', 45)->nullable();
             $table->timestamps();
