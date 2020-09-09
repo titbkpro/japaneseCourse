@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\StoreRequest;
 use App\Http\Requests\Course\UpdateRequest;
 use App\Http\Services\Admin\CourseManageService;
+use Illuminate\Support\Facades\Log;
 
 class CourseManageController extends Controller
 {
@@ -40,13 +41,13 @@ class CourseManageController extends Controller
     public function store(StoreRequest $request)
     {
         $this->service->addNewCourse($request->all());
-        return  redirect('/course-manage');
+        return  redirect('/admin/course-manage');
     }
 
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request, $id)
     {
-        $this->service->updateCourse($request->all())->toArray();
-        return  redirect()->route('index');
+        $this->service->updateCourse($request->all(), $id);
+        return  redirect('/admin/course-manage');
     }
 
     public function destroy($courseId)
