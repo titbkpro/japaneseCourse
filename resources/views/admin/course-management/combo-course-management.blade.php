@@ -133,6 +133,16 @@
                                         <input type="text" class="form-control" name="image_id">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Chọn khóa học<span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="select2-selection--multiple form-control" tabindex="-1" name="course_id[]" multiple>
+                                            @foreach($courses as $course)
+                                                <option value="{{$course['id']}}">{{$course['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -154,7 +164,7 @@
                                 {{ csrf_field() }}
                                 {{ method_field('PUT') }}
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-122">Tên combo <span class="required">*</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-122">Tên combo <span class="required"/>*</label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <input type="text" class="form-control" name="name" id=name>
                                     </div>
@@ -187,6 +197,16 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <input type="text" class="form-control" name="image_id" id="image_id">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Chọn khóa học<span class="required"/>*</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select id="combo-courses" class="select2-selection--multiple form-control" tabindex="-1" name="course_id[]" multiple>
+                                            @foreach($courses as $course)
+                                                <option value="{{$course['id']}}">{{$course['name']}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
@@ -280,29 +300,34 @@
                     document.getElementById($id).style.display = "none";
                 }
 
-                function editForm(course) {
+                function editForm(combo) {
                     closeForm("add-combo");
-                    let id =  course["id"];
+                    let id =  combo["id"];
                     let route = "{{route('combo-course-management.update', ':id')}}";
                     $("#edit-combo-form").attr("action", route.replace(":id", id));
-                    $("#name").val(course["name"]);
-                    $("#time").val(course["time"]);
-                    $("#fee").val(course["fee"]);
-                    $("#description").val(course["description"]);
-                    $("#sale_off").val(course["sale_off"]);
-                    $("#image_id").val(course["image_id"]);
+                    $("#name").val(combo["name"]);
+                    $("#time").val(combo["time"]);
+                    $("#fee").val(combo["fee"]);
+                    $("#description").val(combo["description"]);
+                    $("#sale_off").val(combo["sale_off"]);
+                    $("#image_id").val(combo["image_id"]);
+
+                    let courses = combo['courses'];
+                    if (courses) {
+                        $('#combo-courses').val(courses.map(course => course['id']));
+                    }
 
                     $("#edit-combo").css({ display: "block" });
                 }
 
-                function deleteData(course)
+                function deleteData(combo)
                 {
-                    var id = course["id"];
+                    var id = combo["id"];
                     var url = '{{ route("combo-course-management.destroy", ":id") }}';
                     url = url.replace(':id', id);
                     $("#deleteForm").attr('action', url);
                     $("#deleteForm").modal('show');
-                    $("#infoName").text(course["name"]);
+                    $("#infoName").text(combo["name"]);
                 }
 
                 function formSubmit()

@@ -4,19 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\StoreRequest;
+use App\Http\Resources\ComboCourseResource;
 use App\Http\Services\Admin\ComboCourseManageService;
+use App\Http\Services\Admin\SingleCourseManageService;
+use Illuminate\Support\Facades\Log;
+use function MongoDB\BSON\toJSON;
 
 class ComboCourseManageController extends Controller
 {
-    public $service;
+    public $comboCourseService;
+
+    public $singleCourseService;
+
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param ComboCourseManageService $comboCourseService
+     * @param SingleCourseManageService $singleCourseService
      */
-    public function __construct()
+    public function __construct(ComboCourseManageService $comboCourseService, SingleCourseManageService $singleCourseService)
     {
-        $this->service = new ComboCourseManageService();
+        $this->comboCourseService = $comboCourseService;
+        $this->singleCourseService = $singleCourseService;
     }
 
     /**
@@ -26,31 +35,36 @@ class ComboCourseManageController extends Controller
      */
     public function index()
     {
-        $combos = $this->service->getAllComboCourses();
-        return view('admin/course-management/combo-course-management', ['combos' => $combos]);
+        $combos = $this->comboCourseService->getAllComboCourses();
+        $courses = $this->singleCourseService->getAllSingleCourses();
+        $courseResources = ComboCourseResource::collection($combos);
+        return view('admin/course-management/combo-course-management', [
+            'combos' => $courseResources,
+            'courses' => $courses,
+        ]);
     }
 
     public function show($comboId)
     {
-        $combo = $this->service->getComboCourseById($comboId);
+        $combo = $this->comboCourseService->getComboCourseById($comboId);
         return view('admin/course-management/combo-course-management', ['combo' => $combo]);
     }
 
     public function store(StoreRequest $request)
     {
-        $this->service->addNewComboCourse($request->all());
+        $this->comboCourseService->addNewComboCourse($request->all());
         return  redirect('/admin/combo-course-management');
     }
 
     public function update(StoreRequest $request, $id)
     {
-        $this->service->updateComboCourse($request->all(), $id);
+        $this->comboCourseService->updateComboCourse($request->all(), $id);
         return  redirect('/admin/combo-course-management');
     }
 
     public function destroy($comboId)
     {
-        $this->service->deleteComboCourse($comboId);
+        $this->comboCourseService->deleteComboCourse($comboId);
         return  redirect('/admin/combo-course-management');
     }
 }
