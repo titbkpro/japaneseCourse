@@ -65,6 +65,33 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'google' => [
+            'image' => [
+                'driver' => 'google',
+                'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
+                'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+                'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+                'folderId' => env('GOOGLE_DRIVE_IMAGE_FOLDER_ID'),
+
+            ],
+            'audio' => [
+                'driver' => 'google',
+                'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
+                'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+                'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+                'folderId' => env('GOOGLE_DRIVE_AUDIO_FOLDER_ID'),
+
+            ],
+            'video' => [
+                'driver' => 'google',
+                'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
+                'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+                'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+                'folderId' => env('GOOGLE_DRIVE_VIDEO_FOLDER_ID'),
+
+            ],
+        ],
+
     ],
 
     /*

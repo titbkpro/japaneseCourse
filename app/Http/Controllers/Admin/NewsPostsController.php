@@ -30,7 +30,7 @@ class NewsPostsController extends Controller
      */
     public function store(NewsPostStoreRequest $request)
     {
-        $this->service->store($request->all());
+        $this->service->store($request);
 
         return redirect(route('news_posts.index'));
     }

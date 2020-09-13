@@ -15,7 +15,7 @@ class NewsPostResource extends JsonResource
     public function toArray($request)
     {
         $category = $this->category;
-
+        $image = $this->image;
         return [
             'id' => $this->id,
             'category' => [
@@ -28,7 +28,7 @@ class NewsPostResource extends JsonResource
                 'id' => $this->status,
                 'name' => __("data.information.status.$this->status"),
             ],
-            // 'image' => $this->image,
+            'image' => $image ? $image->url : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

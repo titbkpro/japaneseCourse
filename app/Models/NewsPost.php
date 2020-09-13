@@ -24,4 +24,9 @@ class NewsPost extends BaseModel
     {
         return $this->belongsTo(NewsCategory::class, 'news_category_id');
     }
+
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
+    }
 }
