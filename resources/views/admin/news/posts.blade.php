@@ -105,7 +105,7 @@
         <div id="add-news-post" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
           <div class="x_panel">
             <div class="x_content">
-              <form class="form-horizontal form-label-left" action="{{route('news_posts.store')}}" method="POST" role="form">
+              <form class="form-horizontal form-label-left" enctype="multipart/form-data" action="{{route('news_posts.store')}}" method="POST" role="form">
               {{ csrf_field() }}
                 <input type="hidden" name="type" value=1>
                 <div class="form-group">
@@ -136,7 +136,7 @@
                   <label class="control-label col-md-2 col-sm-2 col-xs-12">Hình ảnh</span>
                   </label>
                   <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input type="text" class="form-control">
+                  <input type="file" class="form-control" name="image" placeholder="Chọn hình ảnh làm ảnh bìa bài tin tức">
                   </div>
                 </div>
                 <div class="form-group">
@@ -211,7 +211,7 @@
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Hình ảnh</span>
                     </label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input type="text" class="form-control">
+                    <input type="file" class="form-control" name="image" id="image" placeholder="Chọn hình ảnh làm ảnh bìa bài tin tức">
                     </div>
                   </div>                
                   <div class="form-group">
@@ -247,7 +247,7 @@
         </div>
         <!-- form show detail -->
         <div class="modal" tabindex="-1" role="dialog" id="detail-modal">
-          <div class="modal-dialog" stype="width:600px;" role="document">
+          <div class="modal-dialog" style="width:600px;" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">THÔNG TIN CHI TIẾT</h5>
@@ -256,34 +256,17 @@
                 </button>
               </div>
               <div class="modal-body">
+                <div>
+                  <label class="control-label">Hiển thị ngoài danh sách</label>
+                </div>
                 <table>
                   <tr>
-                    <td style="width:150px;"><label class="control-label">ID:</label></td>
-                    <td id="infoDetailIdDetail"></td>
-                  </tr>
-                  <tr>
-                    <td><label class="control-label">Loại tin tức</label></td>
-                    <td id="categoryNameDetail"></td>
-                  </tr>
-                  <tr>
-                    <td><label class="control-label">Tiêu đề:</label></td>
-                    <td id="titleDetail"></td>
-                  </tr>
-                  <tr>
-                    <td><label class="control-label">Hình ảnh:</label></td>
-                    <td id="imageDetail"></td>
-                  </tr>
-                  <tr>
-                    <td><label class="control-label">Trạng thái hiển thị:</label></td>
-                    <td id="statusDetail"></td>
-                  </tr>
-                  <tr>
-                    <td><label class="control-label">Ngày cập nhật:</label></td>
-                    <td id="updateDetail"></td>
+                    <td ><img src="" width="200" height="200" id="imageDetail"></td>
+                    <td id="contentDetailList" style="padding-left:20px;"></td>
                   </tr>
                 </table>
                 <div>
-                  <label class="control-label">Nội dung:</label>
+                  <label class="control-label">Hiển thị chi tiết</label>
                 </div>
                 <div id="contentDetail" style="border:1px solid #73879C; padding: 10px;">
                 </div>
@@ -403,12 +386,10 @@
 
       function showFormDetail(newsPost)
       {
-        $("#infoDetailIdDetail").text(newsPost["id"]);
-        $("#categoryNameDetail").text(newsPost["category"]["name"]);
-        $("#titleDetail").text(newsPost["title"]);
+        var title = newsPost["content"].substring(0, 300) + " ...";
+        $("#contentDetailList").html(title);
+        $("#imageDetail").attr("src", newsPost["image"]);
         $("#contentDetail").html(newsPost["content"]);
-        $("#statusDetail").text(newsPost["status"]["name"]);
-        $("#updateDetail").text(newsPost["updated_at"]);
         $("#detail-modal").modal('show');
       }
     </script>
