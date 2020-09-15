@@ -11,4 +11,12 @@ class Unit extends BaseModel
         'parent_unit_id',
         'name',
     ];
+
+    public function parent() {
+        return $this->belongsTo(Unit::class, 'parent_unit_id')->with('parent');
+    }
+
+    public function children() {
+        return $this->hasMany(Unit::class, 'parent_unit_id')->with('children');
+    }
 }

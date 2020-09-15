@@ -109,7 +109,7 @@
               {{ csrf_field() }}
                 <input type="hidden" name="type" value=1>
                 <div class="form-group">
-                  <label class="control-label col-md-2 col-sm-2 col-xs-12">Loại thông tin<span class="required">*</label>
+                  <label class="control-label col-md-2 col-sm-2 col-xs-12">Loại thông tin<span class="required"/>*</label>
                   <div class="col-md-9 col-sm-9 col-xs-12">
                     <select class="select2_single form-control" tabindex="-1" name="info_id">
                       <option></option>
@@ -131,7 +131,7 @@
                   <div class="col-md-9 col-sm-9 col-xs-12">
                     <textarea class="form-control" id="contentAdd" name="content">{{ old('type') == 1 ? old('content') : '' }}</textarea>
                   </div>
-                </div>                    
+                </div>
                 <div class="form-group">
                   <label class="control-label col-md-2 col-sm-2 col-xs-12">
                     Hiển thị
@@ -199,7 +199,7 @@
                     <div class="col-md-9 col-sm-9 col-xs-12">
                       <textarea class="form-control" id="contentEdit" name="content">{{ old('type') == 2 ? old('content') : '' }}</textarea>
                     </div>
-                  </div>                    
+                  </div>
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">
                       Hiển thị

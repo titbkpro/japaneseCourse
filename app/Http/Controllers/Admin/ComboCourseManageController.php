@@ -7,8 +7,6 @@ use App\Http\Requests\Course\StoreRequest;
 use App\Http\Resources\ComboCourseResource;
 use App\Http\Services\Admin\ComboCourseManageService;
 use App\Http\Services\Admin\SingleCourseManageService;
-use Illuminate\Support\Facades\Log;
-use function MongoDB\BSON\toJSON;
 
 class ComboCourseManageController extends Controller
 {
