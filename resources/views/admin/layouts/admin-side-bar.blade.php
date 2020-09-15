@@ -31,7 +31,7 @@
                             <li><a href="./lesson">Quản lý bài học</a></li>
                             <li><a href="./single-course-management">Quản lý khóa học đơn</a></li>
                             <li><a href="./combo-course-management">Quản lý khóa học combo</a></li>
-                            <li><a href="./unit-management">Quản lý Unit</a></li>
+                            <li><a href="./unit-management">Quản lý Lớp học</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-video-camera"></i> Video <span class="fa"></span></a>
