@@ -27,6 +27,6 @@ class NewsPost extends BaseModel
 
     public function image()
     {
-        return $this->belongsTo(Image::class);
+        return $this->belongsTo(DataFile::class, 'image_id');
     }
 }

@@ -173,7 +173,7 @@
         <div id="edit-news-post" class="col-md-12 col-sm-12 col-xs-12" style = "display:none">
           <div class="x_panel">
               <div class="x_content">
-                <form id="edit-news-post-form" class="form-horizontal form-label-left" action="" method="POST" role="form">
+                <form id="edit-news-post-form" class="form-horizontal form-label-left" enctype="multipart/form-data" action="" method="POST" role="form">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                   <input type="hidden" name="type" value=2>
@@ -262,13 +262,13 @@
                 <table>
                   <tr>
                     <td ><img src="" width="200" height="200" id="imageDetail"></td>
-                    <td id="contentDetailList" style="padding-left:20px;"></td>
+                    <td id="contentDetailList" style="padding-left:20px; word-break: break-all;"></td>
                   </tr>
                 </table>
                 <div>
                   <label class="control-label">Hiển thị chi tiết</label>
                 </div>
-                <div id="contentDetail" style="border:1px solid #73879C; padding: 10px;">
+                <div id="contentDetail" style="border:1px solid #73879C; padding: 10px;word-break: break-all;">
                 </div>
               </div>
               <div class="modal-footer">
@@ -388,7 +388,9 @@
       {
         var title = newsPost["content"].substring(0, 300) + " ...";
         $("#contentDetailList").html(title);
-        $("#imageDetail").attr("src", newsPost["image"]);
+        if (newsPost["image"] !== null) {
+          $("#imageDetail").attr("src", newsPost["image"]["url"]);
+        }
         $("#contentDetail").html(newsPost["content"]);
         $("#detail-modal").modal('show');
       }

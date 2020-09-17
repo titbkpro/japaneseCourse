@@ -35,4 +35,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('student_contacts', 'Admin\StudentContactsController');
     Route::resource('news_categories', 'Admin\NewsCategoriesController');
     Route::resource('news_posts', 'Admin\NewsPostsController');
+    Route::resource('payment_infos', 'Admin\PaymentInfosController');
 });

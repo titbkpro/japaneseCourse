@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class NewsPostResource extends JsonResource
+class PaymentInfoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,25 +14,14 @@ class NewsPostResource extends JsonResource
      */
     public function toArray($request)
     {
-        $category = $this->category;
-        $image = $this->image;
         return [
             'id' => $this->id,
-            'category' => [
-                'id' => $category->id,
-                'name' => $category->name,
-            ],
-            'title' => $this->title,
+            'name' => $this->name,
             'content' => $this->content,
             'status' => [
                 'id' => $this->status,
                 'name' => __("data.information.status.$this->status"),
             ],
-            'image' => $image ? [
-                'id' => $image->id,
-                'name' => $image->name,
-                'url' => $image->url,
-            ] : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

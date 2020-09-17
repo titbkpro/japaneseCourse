@@ -7,13 +7,12 @@ use Log;
 use Storage;
 use Exception;
 use Carbon\Carbon;
-use App\Models\Image;
+use App\Models\DataFile;
 use App\Models\NewsPost;
 use App\Exceptions\WebException;
 
 class NewsPostsService extends BaseService
 {
-    const URL = 'https://drive.google.com/uc?export=view&id=';
     /**
      * Get all new post
      *
@@ -42,8 +41,9 @@ class NewsPostsService extends BaseService
             $imageDisk->put($fileName, file_get_contents($image));
             $imageInfo = collect($imageDisk->listContents('/', false))->where('type', 'file')->where('name', $fileName)->first();
 
-            $image = Image::create([
-                'url' => self::URL . $imageInfo['path'],
+            $image = DataFile::create([
+                'url' => Storage::disk('google.image')->url($imageInfo['path']),
+                'type' => DataFile::IMAGE,
                 'name' => $image->getClientOriginalName(),
                 'description' => 'description',
             ]);
@@ -66,12 +66,33 @@ class NewsPostsService extends BaseService
      *
      * @return NewsPost
      */
-    public function update($id, $inputs)
+    public function update($id, $request)
     {
+        $inputs = $request->all();
         $newsPost = NewsPost::findOrFail($id);
 
         if ($newsPost) {
-            $newsPost->update($inputs);
+            $image = null;
+
+            if ($request->hasFile('image')) {
+                $imageDisk = Storage::disk('google.image');
+                $image = $request->file('image');
+                $fileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '_' . Carbon::now()->timestamp
+                    . '.' . pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION);
+    
+                $imageDisk->put($fileName, file_get_contents($image));
+                $imageInfo = collect($imageDisk->listContents('/', false))->where('type', 'file')->where('name', $fileName)->first();
+    
+                $image = DataFile::create([
+                    'url' => Storage::disk('google.image')->url($imageInfo['path']),
+                    'type' => DataFile::IMAGE,
+                    'name' => $image->getClientOriginalName(),
+                    'description' => 'description',
+                ]);
+            }
+
+            $newsPost->image->delete();
+            $newsPost->update(array_merge($inputs, ['image_id' => $image->id]));
         } else {
             throw new WebException('update_error');
         }
