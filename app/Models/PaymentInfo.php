@@ -8,6 +8,8 @@ namespace App\Models;
 class PaymentInfo extends BaseModel
 {
     protected $fillable = [
+        'name',
         'content',
+        'status',
     ];
 }

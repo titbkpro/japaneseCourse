@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Admin\NewsCategoryService;
-use App\Http\Requests\Admin\Information\StoreRequest;
 use App\Http\Requests\Admin\News\NewsCategoryStoreRequest;
 
 /**

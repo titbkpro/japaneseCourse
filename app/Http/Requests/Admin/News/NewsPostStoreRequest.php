@@ -18,7 +18,7 @@ class NewsPostStoreRequest extends BaseRequest
             'title' => 'required|max:255',
             'content' => 'required',
             'status' => 'required|boolean',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

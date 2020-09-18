@@ -40,7 +40,7 @@ class NewsPostsController extends Controller
      */
     public function update(NewsPostStoreRequest $request, $id)
     {
-        $this->service->update($id, $request->all());
+        $this->service->update($id, $request);
 
         return redirect(route('news_posts.index'));
     }
