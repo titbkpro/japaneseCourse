@@ -9,6 +9,10 @@ class FeedbackImage extends BaseModel
 {
     protected $fillable = [
         'image_id',
-        'type',
     ];
+
+    public function image()
+    {
+        return $this->belongsTo(DataFile::class, 'image_id');
+    }
 }

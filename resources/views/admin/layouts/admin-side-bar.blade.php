@@ -40,16 +40,20 @@
                     </li>
                     <li><a><i class="fa fa-audio-description"></i> Audio <span class="fa"></span></a>
                     </li>
-                    <li><a><i class="fa fa-sticky-note"></i> Quản lý bài post <span class="fa"></span></a>
+                    <li><a><i class="fa fa-sticky-note"></i> Quản lý bài post <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="./news_categories">Loại tin tức</a></li>
+                            <li><a href="./news_posts">Tin tức</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
             <div class="menu_section">
                 <h3>Quản lý thông tin</h3>
                 <ul class="nav side-menu">
-                    <li><a href="./admin/informations"><i class="fa fa-map-marker"></i>Địa chỉ <span class="fa"></span></a>
+                    <li><a href="./informations"><i class="fa fa-map-marker"></i>Địa chỉ <span class="fa"></span></a>
                     </li>
-                    <li><a href="./admin/information-details"><i class="fa fa-map-marker"></i>Địa chỉ chi tiết<span class="fa"></span></a>
+                    <li><a href="./information-details"><i class="fa fa-map-marker"></i>Địa chỉ chi tiết<span class="fa"></span></a>
                     </li>
                     <li><a><i class="fa fa-users"></i> Người dùng <span class="fa fa-chevron-down"></span></a>
                     </li>
