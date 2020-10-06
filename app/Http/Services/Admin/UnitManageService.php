@@ -3,6 +3,8 @@
 namespace App\Http\Services\Admin;
 
 use App\Exceptions\WebException;
+use App\Models\Combo;
+use App\Models\Course;
 use App\Models\Unit;
 
 class UnitManageService extends BaseService
@@ -19,7 +21,17 @@ class UnitManageService extends BaseService
 
     public function addNewUnit($unitInput)
     {
-        return Unit::create($unitInput);
+        $unit =  Unit::create($unitInput);
+
+        $courses = Course::find($unitInput['course_id']);
+        if ($courses) {
+            $unit->courses()->attach($courses);
+        }
+
+        $combos = Combo::find($unitInput['combo_id']);
+        if ($combos) {
+            $unit->combos()->attach($combos);
+        }
     }
 
     public function updateUnit($unitInput, $unitId)

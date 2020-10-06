@@ -5,10 +5,10 @@ namespace App\Models;
 /**
  * Model exercise_detail_questions table
  */
-class ExerciseDetailQuestion extends BaseModel
+class ExerciseQuestion extends BaseModel
 {
     protected $fillable = [
-        'exercise_detail_id',
+        'exercise_id',
         'question_id',
     ];
 }

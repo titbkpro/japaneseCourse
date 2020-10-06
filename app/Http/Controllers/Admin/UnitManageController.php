@@ -3,22 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Unit\ImportRequest;
 use App\Http\Requests\Admin\Unit\StoreRequest;
 use App\Http\Resources\UnitResource;
+use App\Http\Services\Admin\ComboCourseManageService;
+use App\Http\Services\Admin\SingleCourseManageService;
 use App\Http\Services\Admin\UnitManageService;
+use App\Models\UnitImport;
+use App\Models\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UnitManageController extends Controller
 {
 
     private $unitService;
 
+    private $singleCourseService;
+
+    private $comboCourseService;
+
     /**
      * Create a new controller instance.
      * @param UnitManageService $unitService
+     * @param SingleCourseManageService $singleCourseService
+     * @param ComboCourseManageService $comboCourseService
      */
-    public function __construct(UnitManageService $unitService)
+    public function __construct(UnitManageService $unitService,
+                                SingleCourseManageService $singleCourseService,
+                                ComboCourseManageService $comboCourseService)
     {
         $this->unitService = $unitService;
+        $this->singleCourseService = $singleCourseService;
+        $this->comboCourseService = $comboCourseService;
     }
 
     /**
@@ -28,11 +44,16 @@ class UnitManageController extends Controller
      */
     public function index()
     {
+        $singleCourses = $this->singleCourseService->getAllSingleCourses();
+        $comboCourses = $this->comboCourseService->getAllComboCourses();
+
         $units = $this->unitService->getAllUnits();
         $unitData = UnitResource::collection($units);
 
         return view('admin/course-management/unit-management', [
             'units' => $unitData->toArray(null),
+            'courses' => $singleCourses->toArray(),
+            'combos' => $comboCourses->toArray(),
         ]);
     }
 
@@ -58,5 +79,13 @@ class UnitManageController extends Controller
     {
         $this->unitService->deleteUnit($id);
         return  redirect('/admin/unit-management');
+    }
+
+    public function import(ImportRequest $request)
+    {
+        Excel::import(new UnitImport(), $request->file('import_file'));
+
+
+        return back();
     }
 }

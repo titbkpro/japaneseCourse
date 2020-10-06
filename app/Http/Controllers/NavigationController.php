@@ -13,7 +13,7 @@ class NavigationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        /*$this->middleware('auth');*/
     }
 
     public function support()
@@ -26,9 +26,9 @@ class NavigationController extends Controller
         return view('contact');
     }
 
-    public function opinion()
+    public function feedback()
     {
-        return view('opinion');
+        return view('feedback');
     }
 
     public function news()

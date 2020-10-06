@@ -20,4 +20,14 @@ class CourseController extends Controller
     {
         return view('course');
     }
+
+    public function singleCourse()
+    {
+        return view('single-course');
+    }
+
+    public function comboCourse()
+    {
+        return view('combo-course');
+    }
 }

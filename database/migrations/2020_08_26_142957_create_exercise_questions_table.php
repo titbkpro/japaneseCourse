@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExerciseDetailsTable extends Migration
+class CreateExerciseQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateExerciseDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exercise_details', function (Blueprint $table) {
+        Schema::create('exercise_question', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('content');
+            $table->unsignedInteger('exercise_id');
+            $table->unsignedInteger('question_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +29,6 @@ class CreateExerciseDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exercise_details');
+        Schema::dropIfExists('exercise_question');
     }
 }

@@ -16,11 +16,11 @@ class CreateLessonsTable extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('desciption');
+            $table->text('description')->nullable();
             $table->integer('total_view')->default(0);
             $table->unsignedInteger('video_id')->nullable();
-            $table->unsignedInteger('exercise_id');
-            $table->text('content');
+            $table->unsignedInteger('unit_id')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

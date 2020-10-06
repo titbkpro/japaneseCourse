@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
+Route::get('/', 'HomeController@index')->name('index');
+
 Route::get('/course', 'CourseController@course')->name('course');
+Route::get('/single-course', 'CourseController@singleCourse')->name('single-course');
+Route::get('/combo-course', 'CourseController@comboCourse')->name('combo-course');
 Route::get('/news', 'NavigationController@news')->name('news');
-Route::get('/opinion', 'NavigationController@opinion')->name('opinion');
+Route::get('/feedbacks', 'NavigationController@feedback')->name('opinion');
 Route::get('/contact', 'NavigationController@contact')->name('contact');
 Route::get('/support', 'NavigationController@support')->name('support');
 
@@ -29,7 +29,20 @@ Route::get('/support', 'NavigationController@support')->name('support');
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('single-course-management', 'Admin\SingleCourseManageController');
     Route::resource('combo-course-management', 'Admin\ComboCourseManageController');
+
+    Route::post('unit-management/import-unit', 'Admin\UnitManageController@import')->name('unit-management.import');
     Route::resource('unit-management', 'Admin\UnitManageController');
+
+    Route::resource('lesson-management', 'Admin\LessonManageController');
+    Route::get('/exercise-management/lesson/{lesson_id}', 'Admin\ExerciseManageController@exercise')->name('exercise-management.exercise');
+    Route::resource('exercise-management', 'Admin\ExerciseManageController');
+
+    Route::get('/question-management/exercise/{exercise_id}', 'Admin\QuestionManageController@question')->name('question-management.question');
+    Route::resource('question-management', 'Admin\QuestionManageController');
+
+    Route::get('/answer-management/question/{question_id}', 'Admin\AnswerManageController@answer')->name('answer-management.answer');
+    Route::resource('answer-management', 'Admin\AnswerManageController');
+
     Route::resource('informations', 'Admin\InformationController');
     Route::resource('information-details', 'Admin\InformationDetailsController');
     Route::resource('contacts', 'Admin\ContactsController');

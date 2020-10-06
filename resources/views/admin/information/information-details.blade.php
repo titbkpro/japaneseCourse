@@ -188,7 +188,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Tiêu đề <span class="required">*</label>
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Tiêu đề <span class="required"/>*</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                       <input type="text" class="form-control" name="title" id="title" value="{{ old('type') == 2 ? old('title') : '' }}">
                     </div>
@@ -295,13 +295,15 @@
                     <button type=button class="btn btn-default" data-dismiss="modal">Hủy</button>
                     <button type=submit class="btn btn-danger" name="" data-dismiss="modal" onclick="formSubmit()">Xoá</button>
                   </div>
+                </div>
               </div>
             </form>
           </div>
         </div>
       </div>
+
+    <div class="clearfix"></div>
     </div>
-  </div>
 </div>
 <!-- /page content -->
 @endsection

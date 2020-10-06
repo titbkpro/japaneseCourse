@@ -19,4 +19,12 @@ class Unit extends BaseModel
     public function children() {
         return $this->hasMany(Unit::class, 'parent_unit_id')->with('children');
     }
+
+    public function courses() {
+        return $this->belongsToMany(Course::class, 'course_units');
+    }
+
+    public function combos() {
+        return $this->belongsToMany(Combo::class, 'combo_units');
+    }
 }

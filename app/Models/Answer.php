@@ -12,4 +12,8 @@ class Answer extends BaseModel
         'answer',
         'is_right_answer',
     ];
+
+    public function question() {
+        return $this->belongsTo(Question::class);
+    }
 }
