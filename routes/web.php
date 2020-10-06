@@ -37,4 +37,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('news_categories', 'Admin\NewsCategoriesController');
     Route::resource('news_posts', 'Admin\NewsPostsController');
     Route::resource('payment_infos', 'Admin\PaymentInfosController');
+    Route::resource('feedbacks', 'Admin\FeedbacksController');
 });
