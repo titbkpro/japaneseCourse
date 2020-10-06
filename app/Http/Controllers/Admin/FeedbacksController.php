@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FeedbacksResourcce;
 use App\Http\Services\Admin\FeedbackService;
 use App\Http\Requests\Admin\Feedback\StoreRequest;
-use App\Http\Resources\FeedbacksResourcce;
 
 /**
  * Class FeedbacksController
@@ -31,7 +31,7 @@ class FeedbacksController extends Controller
     {
         $feedbacks = $this->service->getAllFeedback();
 
-        return view('admin/feedbacks', ['feedbacks' => FeedbacksResourcce::collection($feedbacks)]);
+        return view('admin/feedbacks/feedbacks', ['feedbacks' => FeedbacksResourcce::collection($feedbacks)]);
     }
 
     /**
@@ -39,7 +39,7 @@ class FeedbacksController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->service->store($request->all());
+        $this->service->store($request);
 
         return redirect(route('feedbacks.index'));
     }
