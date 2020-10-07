@@ -95,19 +95,21 @@
                     </form>  
                   </div>
                 </div>
+                @if($errors->any())
+                  {!! implode('', $errors->all('<div class="error">:message</div>')) !!}
+                @endif
             </div>
           </div>
           <div class="outer-grid">
             @foreach($feedbacks as $feedback)
               <div class="inner-grid">
                 <img src="{{$feedback['image']['url']}}"/>
-                <div>
-                  <label class="control-label col-md-2 col-sm-2 col-xs-12">{{$feedback['image']['name']}}</label>
+                <div style="text-align: center;">
+                  <label >{{$feedback['image']['name']}}</label>
                 </div>
-                  <div class="col-md-9 col-sm-9 col-xs-12">
-                    <button type="button" class="btn btn-round btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" onclick='deleteData(<?php echo json_encode($feedback); ?>)'>Xóa</button>
-                  </div>
-                <!-- </div> -->
+                <div style="text-align: center;">
+                  <button type="button" class="btn btn-round btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" onclick='deleteData(<?php echo json_encode($feedback); ?>)'>Xóa</button>
+                </div>
               </div>
             @endforeach
           </div>
