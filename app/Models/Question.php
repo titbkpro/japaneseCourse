@@ -13,4 +13,12 @@ class Question extends BaseModel
         'audio_id',
         'explain_result',
     ];
+
+    public function exercises() {
+        return $this->belongsToMany(Exercise::class);
+    }
+
+    public function answers() {
+        return $this->hasMany(Answer::class);
+    }
 }

@@ -15,14 +15,10 @@ class UnitResource extends JsonResource
      */
     public function toArray($request)
     {
-        Log::info("=============================current Unit=============");
-        Log::info($this->id);
         $parentUnit = $this->parent;
-        Log::info("=============================parentUnit=============");
-        Log::info($parentUnit);
         $childrenUnits = $this->children;
-        Log::info("=============================childrenUnits=============");
-        Log::info($childrenUnits);
+        $courses = $this->courses;
+        $combos = $this->combos;
 
         return [
             'id' => $this->id,
@@ -32,6 +28,14 @@ class UnitResource extends JsonResource
                 'name' => $parentUnit->name,
             ] : null,
             'children_units' => UnitResource::collection($childrenUnits),
+            'course' => ($courses->isNotEmpty()) ? [
+                'id' => $courses->first()->id,
+                'name' => $courses->first()->name,
+            ] : null,
+            'combo' => ($combos->isNotEmpty()) ? [
+                'id' => $combos->first()->id,
+                'name' => $combos->first()->name,
+            ] : null ,
         ];
     }
 }

@@ -9,10 +9,14 @@ class Lesson extends BaseModel
 {
     protected $fillable = [
         'name',
-        'desciption',
+        'description',
         'total_view',
         'video_id',
-        'exercise_id',
+        'unit_id',
         'content',
     ];
+
+    public function exercises() {
+        return $this->hasMany(Exercise::class);
+    }
 }

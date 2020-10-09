@@ -42,7 +42,9 @@
                                     <tr class="headings">
                                         <th class="column-title">Id </th>
                                         <th class="column-title">Tên Lớp học </th>
-                                        <th class="column-title">Tên lớp học cha </th>
+                                        <th class="column-title">Tên lớp học trên </th>
+                                        <th class="column-title">Tên khóa học đơn</th>
+                                        <th class="column-title">Tên khóa học combo</th>
                                         <th class="column-title no-link last"><span class="nobr">Hoạt động</span>
                                         </th>
                                         <th class="bulk-actions" colspan="7">
@@ -58,6 +60,8 @@
                                             <td class=" ">{{$unit['id']}}</td>
                                             <td class=" ">{{$unit['name']}} </td>
                                             <td class=" ">{{$unit['parent_unit']['name']}}</td>
+                                            <td class=" ">{{$unit['course']['name']}}</td>
+                                            <td class=" ">{{$unit['combo']['name']}}</td>
                                             <td class=" last">
                                                 <button type="button" class="btn btn-round btn-info btn-xs"
                                                         onclick='editForm(<?php echo json_encode($unit); ?>)'>Chỉnh sửa</button>
@@ -100,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên lớp học tổng</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên lớp học trên</label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <select class="select2_single form-control" tabindex="-1" name="parent_unit_id">
                                             <option></option>
@@ -110,6 +114,31 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên khóa học đơn</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="select2_single form-control" tabindex="-1" name="course_id">
+                                            <option></option>
+                                            @foreach($courses as $course)
+                                                <option value="{{$course['id']}}">{{$course['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên khóa học combo</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="select2_single form-control" tabindex="-1" name="combo_id">
+                                            <option></option>
+                                            @foreach($combos as $combo)
+                                                <option value="{{$combo['id']}}">{{$combo['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -148,6 +177,30 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên khóa học đơn</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="select2_single form-control" tabindex="-1" id="course" name="course_id">
+                                            <option></option>
+                                            @foreach($courses as $course)
+                                                <option value="{{$course['id']}}">{{$course['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên khóa học combo</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="select2_single form-control" tabindex="-1" id="combo" name="combo_id">
+                                            <option></option>
+                                            @foreach($combos as $combo)
+                                                <option value="{{$combo['id']}}">{{$combo['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -157,6 +210,36 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div id="upload-unit" class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <div class="container">
+                                {{--@if($message = Session::get('success'))
+                                    <div class="alert alert-info alert-dismissible fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <strong>Success!</strong> {{ $message }}
+                                    </div>
+                                @endif--}}
+                                {{--{!! Session::forget('success') !!}--}}
+                                <br />
+                                {{--<a href="{{ URL::to('downloadExcel/xls') }}"><button class="btn btn-success">Download Excel xls</button></a>
+                                <a href="{{ URL::to('downloadExcel/xlsx') }}"><button class="btn btn-success">Download Excel xlsx</button></a>
+                                <a href="{{ URL::to('downloadExcel/csv') }}"><button class="btn btn-success">Download CSV</button></a>--}}
+                                <form action="{{route('unit-management.import')}}" method="POST"
+                                      class="form-horizontal" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    <input type="file" id="import_file" name="import_file" />
+                                    <button type="submit" class="btn btn-primary">Import File</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,6 +344,14 @@
                             });
                         }
                     });
+
+                    if (unit["course"]) {
+                        $("#course").val(unit["course"]["id"]);
+                    }
+
+                    if (unit["combo"]) {
+                        $("#combo").val(unit["combo"]["id"]);
+                    }
 
                     $("#edit-unit").css({ display: "block" });
                 }
