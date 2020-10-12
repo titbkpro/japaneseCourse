@@ -29,6 +29,12 @@ class ExerciseManagementService extends BaseService
         return Exercise::create($exerciseInput);
     }
 
+    public function addNewExerciseWithQuestions($exercise, $questions)
+    {
+        $newExercise = Exercise::create($exercise);
+        $newExercise->questions()->createMany($questions);
+    }
+
     public function updateExercise($exerciseInput, $exerciseId)
     {
         $exercise = Exercise::find($exerciseId);
