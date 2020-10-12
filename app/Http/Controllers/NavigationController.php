@@ -35,4 +35,9 @@ class NavigationController extends Controller
     {
         return view('news');
     }
+
+    public function newsList()
+    {
+        return view('news-list');
+    }
 }

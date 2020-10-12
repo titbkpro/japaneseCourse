@@ -59,13 +59,13 @@
                                         <a href="/news">Tin tức</a>
                                         <ul class="dropdown">
                                             <li>
-                                                <a href="danh-muc.html">Kinh nghiệm học tiếng Nhật</a>
+                                                <a href="/news-list">Kinh nghiệm học tiếng Nhật</a>
                                             </li>
                                             <li>
-                                                <a href="danh-muc.html">Văn hóa Nhật Bản</a>
+                                                <a href="/news-list">Văn hóa Nhật Bản</a>
                                             </li>
                                             <li>
-                                                <a href="danh-muc.html">Tin Tức sự kiện</a>
+                                                <a href="/news-list">Tin Tức sự kiện</a>
                                             </li>
                                         </ul>
                                     </li>
