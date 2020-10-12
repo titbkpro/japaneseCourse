@@ -98,9 +98,9 @@
                                 </li>
                                 <li class="drop"><a href="../news">TIN TỨC</a>
                                     <ul class="dropdown">
-                                        <li><a href="../news">KINH NGHIỆM HỌC TIẾNG NHẬT</a></li>
-                                        <li><a href="../news">VĂN HÓA NHẬT BẢN</a></li>
-                                        <li><a href="../news">TIN TỨC SỰ KIỆN</a></li>
+                                        <li><a href="../news-list">KINH NGHIỆM HỌC TIẾNG NHẬT</a></li>
+                                        <li><a href="../news-list">VĂN HÓA NHẬT BẢN</a></li>
+                                        <li><a href="../news-list">TIN TỨC SỰ KIỆN</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="../opinion">CẢM NHẬN</a></li>
@@ -129,9 +129,9 @@
                             </li>
                             <li><a href="../news">TIN TỨC</a>
                                 <ul>
-                                    <li><a href="../news">KINH NGHIỆM HỌC TIẾNG NHẬT</a></li>
-                                    <li><a href="../news">VĂN HÓA NHẬT BẢN</a></li>
-                                    <li><a href="../news">TIN TỨC SỰ KIỆN</a></li>
+                                    <li><a href="../news-list">KINH NGHIỆM HỌC TIẾNG NHẬT</a></li>
+                                    <li><a href="../news-list">VĂN HÓA NHẬT BẢN</a></li>
+                                    <li><a href="../news-list">TIN TỨC SỰ KIỆN</a></li>
                                 </ul>
                             </li>
                             <li><a href="../opinion">CẢM NHẬN</a></li>

@@ -21,6 +21,7 @@ Route::get('/course', 'CourseController@course')->name('course');
 Route::get('/single-course', 'CourseController@singleCourse')->name('single-course');
 Route::get('/combo-course', 'CourseController@comboCourse')->name('combo-course');
 Route::get('/news', 'NavigationController@news')->name('news');
+Route::get('/news-list', 'NavigationController@newsList')->name('news-list');
 Route::get('/feedbacks', 'NavigationController@feedback')->name('opinion');
 Route::get('/contact', 'NavigationController@contact')->name('contact');
 Route::get('/support', 'NavigationController@support')->name('support');
