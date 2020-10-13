@@ -96,7 +96,7 @@
                                         <li><a href="../course">KHÓA HỌC COMBO</a></li>
                                     </ul>
                                 </li>
-                                <li class="drop"><a href="../news">TIN TỨC</a>
+                                <li class="drop">TIN TỨC</a>
                                     <ul class="dropdown">
                                         <li><a href="../news-list">KINH NGHIỆM HỌC TIẾNG NHẬT</a></li>
                                         <li><a href="../news-list">VĂN HÓA NHẬT BẢN</a></li>

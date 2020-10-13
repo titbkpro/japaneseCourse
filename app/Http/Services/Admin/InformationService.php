@@ -74,4 +74,14 @@ class InformationService extends BaseService
             throw new WebException('delete_error');
         }
     }
+
+    /**
+     * Get information detail
+     *
+     * @return Info
+     */
+    public function getInfoDetailById($id)
+    {
+        return Info::findOrFail($id);
+    }
 }

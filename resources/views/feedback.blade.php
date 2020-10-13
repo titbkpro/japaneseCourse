@@ -15,42 +15,14 @@
             <div class="row">
                 <div class="review-wrap mt--30">
                     <div class="review-image-slider owl-carousel">
+                        @foreach($feedbacks as $feedback)
                         <div class="owl-item">
                             <img
-                                src="https://tiengnhatcolam.vn/images/landing/1.jpg"
+                                src="{{$feedback['image']['url']}}"
                                 alt=""
                             />
                         </div>
-                        <div class="owl-item">
-                            <img
-                                src="https://tiengnhatcolam.vn/images/landing/12.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="owl-item">
-                            <img
-                                src="https://tiengnhatcolam.vn/images/landing/2.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="owl-item">
-                            <img
-                                src="https://tiengnhatcolam.vn/images/landing/3.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="owl-item">
-                            <img
-                                src="https://tiengnhatcolam.vn/images/landing/4.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="owl-item">
-                            <img
-                                src="https://tiengnhatcolam.vn/images/landing/5.jpg"
-                                alt=""
-                            />
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

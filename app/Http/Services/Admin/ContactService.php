@@ -74,4 +74,9 @@ class ContactService extends BaseService
             throw new WebException('delete_error');
         }
     }
+
+    public function getContactDisplayed()
+    {
+        return Contact::where('status', Contact::SHOW)->first();
+    }
 }

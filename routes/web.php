@@ -24,6 +24,7 @@ Route::get('/news', 'NavigationController@news')->name('news');
 Route::get('/news-list', 'NavigationController@newsList')->name('news-list');
 Route::get('/feedbacks', 'NavigationController@feedback')->name('opinion');
 Route::get('/contact', 'NavigationController@contact')->name('contact');
+Route::post('/contact', 'NavigationController@storeContact')->name('contact_store');
 Route::get('/support', 'NavigationController@support')->name('support');
 
 // Admin
