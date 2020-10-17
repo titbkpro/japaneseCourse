@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController;
 
-class CourseController extends Controller
+class CourseController extends BaseController
 {
     /**
      * Create a new controller instance.
@@ -14,6 +14,7 @@ class CourseController extends Controller
     public function __construct()
     {
         //$this->middleware('auth');
+        parent::__construct();
     }
 
     public function course()

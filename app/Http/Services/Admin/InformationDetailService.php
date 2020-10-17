@@ -76,4 +76,14 @@ class InformationDetailService extends BaseService
     {
         return InfoDetail::findOrFail($id);
     }
+
+    /**
+     * Get all info detail
+     *
+     * @return InfoDetail
+     */
+    public function getListInformationDetailsByInfoId($info_id)
+    {
+        return InfoDetail::where('info_id', $info_id)->get();
+    }
 }

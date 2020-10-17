@@ -386,7 +386,7 @@
 
       function showFormDetail(newsPost)
       {
-        var title = newsPost["content"].substring(0, 300) + " ...";
+        var title = newsPost["content"].substring(0, 300);
         $("#contentDetailList").html(title);
         if (newsPost["image"] !== null) {
           $("#imageDetail").attr("src", newsPost["image"]["url"]);

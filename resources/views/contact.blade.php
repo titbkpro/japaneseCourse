@@ -12,76 +12,50 @@
                             hồi đáp nhanh nhất yêu cầu của Quý khách hàng.
                         </p>
                         <div class="htc__contact__inner">
-                            <div class="contact__address">
-                                <div class="cont__icon">
-                                    <i class="icon ion-ios-calendar"></i>
-                                    <span>THỜI GIAN LÀM VIỆC</span>
-                                </div>
-                                <p>Từ thứ Hai đến thứ Bảy hàng tuần</p>
-                                <p>Sáng 8h00 - 12h00, Chiều 13h00 - 17h00</p>
-                            </div>
-                            <div class="contact__address">
-                                <div class="cont__icon">
-                                    <i class="icon ion-ios-location"></i>
-                                    <span>ĐỊA CHỈ</span>
-                                </div>
-                                <p>Đào Thanh Lam</p>
-                                <p>Phố Xuân Đỗ, Phường Cự Khối, Quận Long Biên, Hà Nội</p>
-                            </div>
-                            <div class="contact__address">
-                                <div class="cont__icon">
-                                    <i class="icon ion-android-call"></i>
-                                    <span>HOTLINE</span>
-                                </div>
-                                <p>
-                                    <a class="contact__tel" href="tel:037 223 2268"
-                                    >037 223 2268</a
-                                    >
-                                </p>
-                            </div>
+                            {!! $contact->contact_detail !!}
                         </div>
                     </div>
                 </div>
-                <div
-                    class="col-md-6 col-lg-6 col-sm-12 col-xs-12 sm-mt-40 xs-mt-40"
-                >
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 sm-mt-40 xs-mt-40">
                     <div class="htc__contact__form__wrap">
                         <h2 class="contact__title">Gửi phản hồi</h2>
                         <div class="contact-form-wrap">
-                            <form
-                                id="contact-form"
-                                action="http://preview.hasthemes.com/educan/mail.php"
-                                method="post"
-                            >
+                            <form id="contact-form" action="{{route('contact_store')}}" method="post">
+                                {{ csrf_field() }}
                                 <div class="single-contact-form name">
                                     <div class="contact-box name_email">
                                         <input
                                             type="text"
-                                            name="name"
+                                            name="name" 
+                                            value="{{old('name')}}"
                                             placeholder="Tên của bạn*"
                                         />
                                         <input
-                                            type="tel"
-                                            name="tel"
+                                            type="text"
                                             placeholder="Số điện thoại*"
+                                            onkeypress="return isNumberKey(event)"
+                                            maxlength="11"
+                                            name="phone_number"
+                                            value="{{ old('phone_number') }}"
                                         />
                                     </div>
                                 </div>
                                 <div class="single-contact-form">
                                     <div class="contact-box subject">
                                         <input
-                                            type="email"
-                                            name="email"
+                                            type="text"
                                             placeholder="Địa chỉ email*"
+                                            name="email" 
+                                            value="{{old('email') }}"
                                         />
                                     </div>
                                 </div>
                                 <div class="single-contact-form">
                                     <div class="contact-box message">
-                        <textarea
-                            name="message"
-                            placeholder="Thông điệp"
-                        ></textarea>
+                                        <textarea
+                                            placeholder="Thông điệp"
+                                            name="note" value="{{ old('note')}}"
+                                        ></textarea>
                                     </div>
                                 </div>
                                 <div class="contact-btn">
@@ -89,10 +63,12 @@
                                         Gửi đi
                                     </button>
                                 </div>
+                                <div class="form-output">
+                                    @if($errors->any()) hahaha
+                                        {!! implode('', $errors->all('<div class="form-messege">:message</div>')) !!}
+                                    @endif
+                                </div>
                             </form>
-                        </div>
-                        <div class="form-output">
-                            <p class="form-messege"></p>
                         </div>
                     </div>
                 </div>
@@ -106,4 +82,12 @@
     </div>
     <!-- End our Google Map Area -->
     <div class="js-footer"></div>
+    <script>
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if (charCode > 31 && (charCode != 46 &&(charCode < 48 || charCode > 57)))
+            return false;
+        return true;
+      }
+    </script>
 @endsection

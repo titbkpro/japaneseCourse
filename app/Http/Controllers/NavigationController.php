@@ -2,38 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Services\Admin\NewsCategoryService;
 
 class NavigationController extends Controller
 {
+    var $categoryService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(NewsCategoryService $categoryService)
     {
-        /*$this->middleware('auth');*/
-    }
-
-    public function support()
-    {
-        return view('support');
-    }
-
-    public function contact()
-    {
-        return view('contact');
-    }
-
-    public function feedback()
-    {
-        return view('feedback');
-    }
-
-    public function news()
-    {
-        return view('news');
+        $this->categoryService = $categoryService;
     }
 
     public function newsList()

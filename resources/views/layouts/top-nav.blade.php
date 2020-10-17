@@ -56,16 +56,16 @@
                                         </ul>
                                     </li>
                                     <li class="drop">
-                                        <a href="/news">Tin tức</a>
+                                        <a href="#">Tin tức</a>
                                         <ul class="dropdown">
                                             <li>
-                                                <a href="/news-list">Kinh nghiệm học tiếng Nhật</a>
+                                                <a href="/news-list/1">Kinh nghiệm học tiếng Nhật</a>
                                             </li>
                                             <li>
-                                                <a href="/news-list">Văn hóa Nhật Bản</a>
+                                                <a href="/news-list/2">Văn hóa Nhật Bản</a>
                                             </li>
                                             <li>
-                                                <a href="/news-list">Tin Tức sự kiện</a>
+                                                <a href="/news-list/3">Tin Tức sự kiện</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -109,7 +109,7 @@
             <!-- End Search Popap -->
         </div>
         <!-- Mobile-menu-area start -->
-        <div class="mobile-menu-area hidden-lg hidden-md">
+        <!-- <div class="mobile-menu-area hidden-lg hidden-md">
             <div class="fluid-container mobile-menu-container">
                 <div class="mobile-logo">
                     <a href="index.html"><img
@@ -126,17 +126,16 @@
                                     <li><a href="/combo-course">Khoá học combo</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="/news">Tin tức</a>
+                            <li>Tin tức
                                 <ul class="dropdown">
                                     <li>
-                                        <a href="danh-muc.html">Kinh nghiệm học tiếng Nhật</a>
+                                        <a href="/news-list/1">Kinh nghiệm học tiếng Nhật</a>
                                     </li>
                                     <li>
-                                        <a href="danh-muc.html">Văn hóa Nhật Bản</a>
+                                        <a href="/news-list/2">Văn hóa Nhật Bản</a>
                                     </li>
                                     <li>
-                                        <a href="danh-muc.html">Tin Tức sự kiện</a>
+                                        <a href="/news-list/3">Tin Tức sự kiện</a>
                                     </li>
                                 </ul>
                             </li>
@@ -147,7 +146,7 @@
                     </nav>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Mobile-menu-area End -->
     </div>
 </div>

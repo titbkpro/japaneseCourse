@@ -113,4 +113,14 @@ class NewsPostsService extends BaseService
             throw new WebException('delete_error');
         }
     }
+
+    public function getNewsPostByCategories($categoryId)
+    {
+        return NewsPost::where('news_category_id', $categoryId)->get();
+    }
+
+    public function getNewsPostById($id)
+    {
+        return NewsPost::findOrFail($id);
+    }
 }
