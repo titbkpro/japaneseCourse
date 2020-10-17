@@ -116,7 +116,7 @@ class NewsPostsService extends BaseService
 
     public function getNewsPostByCategories($categoryId)
     {
-        return NewsPost::where('news_category_id', $categoryId)->get();
+        return NewsPost::where('news_category_id', $categoryId)->paginate(5);
     }
 
     public function getNewsPostById($id)

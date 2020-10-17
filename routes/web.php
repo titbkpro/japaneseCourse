@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('index');
+Route::get('/', 'User\CourseController@course')->name('index');
 
 Route::get('/course', 'User\CourseController@course')->name('course');
 Route::get('/single-course', 'User\CourseController@singleCourse')->name('single-course');
