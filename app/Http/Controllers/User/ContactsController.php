@@ -3,23 +3,25 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Controllers\Controller;
 use App\Http\Services\Admin\ContactService;
 use App\Http\Requests\Contact\StoreRequest;
+use App\Http\Services\Admin\StudentContactService;
 
 class ContactsController extends BaseController
 {
     var $contactService;
+    var $studentContactService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(ContactService $contactService)
+    public function __construct(ContactService $contactService, StudentContactService $studentContactService)
     {
         parent::__construct();
         $this->contactService = $contactService;
+        $this->studentContactService = $studentContactService;
     }
 
     public function contact()
@@ -35,7 +37,7 @@ class ContactsController extends BaseController
      */
     public function storeContact(StoreRequest $request)
     {
-        $this->studenContactService->store($request->all());
+        $this->studentContactService->store($request->all());
 
         return redirect(route('contact', [
             'message' => 'Trung tâm đã nhận được thông tin phả hồi từ bạn, xin cảm ơn!'

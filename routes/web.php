@@ -25,6 +25,8 @@ Route::get('/feedbacks', 'User\FeedbacksController@feedback')->name('opinion');
 Route::get('/contact', 'User\ContactsController@contact')->name('contact');
 Route::post('/contact', 'User\ContactsController@storeContact')->name('contact_store');
 Route::get('/support', 'User\SupportsController@support')->name('support');
+Route::get('/news-list/{category_id}', 'User\NewsPostsController@index')->name('new-list');
+Route::get('/news-post/{id}', 'User\NewsPostsController@show')->name('new-list');
 
 // Admin
 Route::group(['prefix' => 'admin'], function () {

@@ -118,4 +118,9 @@ class NewsPostsService extends BaseService
     {
         return NewsPost::where('news_category_id', $categoryId)->get();
     }
+
+    public function getNewsPostById($id)
+    {
+        return NewsPost::findOrFail($id);
+    }
 }

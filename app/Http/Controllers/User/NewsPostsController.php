@@ -40,9 +40,17 @@ class NewsPostsController extends BaseController
     {
         $newsPosts = $this->newsPostservice->getNewsPostByCategories($id);
 
+        return view('news-list', [
+            'newsPosts' => NewsPostResource::collection($newsPosts),
+        ]);
+    }
+
+    public function show($id)
+    {
+        $newsPost = $this->newsPostservice->getNewsPostById($id);
+
         return view('news', [
-            'newsPosts' => $data,
-            'categories' => $categories,
+            'newsPost' => new NewsPostResource($newsPost),
         ]);
     }
 }

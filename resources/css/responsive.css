@@ -1001,6 +1001,9 @@ nav.mainmenu__nav {
 .newsletter__wrap {
   padding: 46px 0 100px 0;
 }
+.single__list {
+  width: 100%;
+}
 
 .offer__separator::before {
   content: inherit;
