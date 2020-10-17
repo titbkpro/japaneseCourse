@@ -62,14 +62,9 @@
                             </div>
                         </div>
                         @endforeach
+                        {{-- Pagination --}}
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                            <ul class="htc-pagination clearfix">
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li>
-                                    <a href="#"><i class="icon ion-ios-arrow-right"></i></a>
-                                </li>
-                            </ul>
+                            {{ $newsPosts->links() }}
                         </div>
                     </div>
                 </div>

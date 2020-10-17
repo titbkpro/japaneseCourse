@@ -28,7 +28,7 @@ class NewsPostsController extends BaseController
     {
         $newsPosts = $this->newsPostservice->getListNewsPosts();
         $categories = $this->categoryService->getAllCategories();
-        $data = NewsPostResource::collection($newsPosts)->toArray(null);
+        $data = NewsPostResource::collection($newsPosts);
 
         return view('news', [
             'newsPosts' => $data,
