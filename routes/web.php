@@ -17,15 +17,14 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('index');
 
-Route::get('/course', 'CourseController@course')->name('course');
-Route::get('/single-course', 'CourseController@singleCourse')->name('single-course');
-Route::get('/combo-course', 'CourseController@comboCourse')->name('combo-course');
-Route::get('/news', 'NavigationController@news')->name('news');
-Route::get('/news-list', 'NavigationController@newsList')->name('news-list');
-Route::get('/feedbacks', 'NavigationController@feedback')->name('opinion');
-Route::get('/contact', 'NavigationController@contact')->name('contact');
-Route::post('/contact', 'NavigationController@storeContact')->name('contact_store');
-Route::get('/support', 'NavigationController@support')->name('support');
+Route::get('/course', 'User\CourseController@course')->name('course');
+Route::get('/single-course', 'User\CourseController@singleCourse')->name('single-course');
+Route::get('/combo-course', 'User\CourseController@comboCourse')->name('combo-course');
+Route::get('/news', 'User\NewsPostsController@news')->name('news');
+Route::get('/feedbacks', 'User\FeedbacksController@feedback')->name('opinion');
+Route::get('/contact', 'User\ContactsController@contact')->name('contact');
+Route::post('/contact', 'User\ContactsController@storeContact')->name('contact_store');
+Route::get('/support', 'User\SupportsController@support')->name('support');
 
 // Admin
 Route::group(['prefix' => 'admin'], function () {
