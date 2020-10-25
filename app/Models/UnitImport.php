@@ -15,8 +15,6 @@ class UnitImport implements WithMultipleSheets
     {
         return [
             0 => new VocabularySheetImport(),
-            1 => new VocabularySheetImport(),
-            2 => new VocabularySheetImport(),
         ];
     }
 }

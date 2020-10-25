@@ -10,7 +10,6 @@ use App\Http\Services\Admin\ComboCourseManageService;
 use App\Http\Services\Admin\SingleCourseManageService;
 use App\Http\Services\Admin\UnitManageService;
 use App\Models\UnitImport;
-use App\Models\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UnitManageController extends Controller
@@ -83,9 +82,9 @@ class UnitManageController extends Controller
 
     public function import(ImportRequest $request)
     {
+        $unitId = $request->unit_id;
+        session(['unit_id' => $unitId]);
         Excel::import(new UnitImport(), $request->file('import_file'));
-
-
         return back();
     }
 }

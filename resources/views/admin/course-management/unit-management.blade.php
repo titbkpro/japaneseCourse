@@ -210,39 +210,38 @@
                                     </div>
                                 </div>
                             </form>
+
+                            <div class="clearfix"></div>
+
+                            <form action="{{route('unit-management.import')}}" method="POST"
+                                  class="form-horizontal" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="unit_id" id="unit_id">
+                                <input type="file" id="import_file" name="import_file" />
+                                <button type="submit" class="btn btn-primary">Import File</button>
+                            </form>
                         </div>
                     </div>
                 </div>
 
                 <div class="clearfix"></div>
 
-                <div id="upload-unit" class="col-md-12 col-sm-12 col-xs-12">
+                {{--<div id="upload-unit" class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_content">
                             <div class="container">
-                                {{--@if($message = Session::get('success'))
-                                    <div class="alert alert-info alert-dismissible fade in" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                        <strong>Success!</strong> {{ $message }}
-                                    </div>
-                                @endif--}}
-                                {{--{!! Session::forget('success') !!}--}}
                                 <br />
-                                {{--<a href="{{ URL::to('downloadExcel/xls') }}"><button class="btn btn-success">Download Excel xls</button></a>
-                                <a href="{{ URL::to('downloadExcel/xlsx') }}"><button class="btn btn-success">Download Excel xlsx</button></a>
-                                <a href="{{ URL::to('downloadExcel/csv') }}"><button class="btn btn-success">Download CSV</button></a>--}}
                                 <form action="{{route('unit-management.import')}}" method="POST"
                                       class="form-horizontal" enctype="multipart/form-data">
                                     {{ csrf_field() }}
+                                    <input type="hidden" name="unit_id" value="{{$unitId ?? ''}}">
                                     <input type="file" id="import_file" name="import_file" />
                                     <button type="submit" class="btn btn-primary">Import File</button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--}}
 
             </div>
         </div>
@@ -352,6 +351,8 @@
                     if (unit["combo"]) {
                         $("#combo").val(unit["combo"]["id"]);
                     }
+
+                    $("#unit_id").val(unit["id"]);
 
                     $("#edit-unit").css({ display: "block" });
                 }
