@@ -11,6 +11,7 @@ use App\Models\Exercise;
 use App\Models\Lesson;
 use App\Models\Question;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
 class VocabularySheetImport implements ToCollection
@@ -18,8 +19,8 @@ class VocabularySheetImport implements ToCollection
 
     public function collection(Collection $rows)
     {
-//        DB::beginTransaction();
-//        try {
+        DB::beginTransaction();
+        try {
             if ($rows) {
 
                 $unitId = session('unit_id');
@@ -49,14 +50,13 @@ class VocabularySheetImport implements ToCollection
                     }
                 }
             }
-//            DB::commit();
-//        } catch (Exception $e) {
-//            dd($e);
-//            DB::rollBack();
-//            Log::error($e->getMessage());
-//            throw new WebException('upload error');
-//        }
-
+            DB::commit();
+        } catch (Exception $e) {
+            dd($e);
+            DB::rollBack();
+            Log::error($e->getMessage());
+            throw new WebException('upload error');
+        }
     }
 
     private function getLessonData($rows) {
