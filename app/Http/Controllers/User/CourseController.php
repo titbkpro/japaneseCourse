@@ -31,4 +31,9 @@ class CourseController extends BaseController
     {
         return view('combo-course');
     }
+
+    public function courseDetail()
+    {
+        return view('course-detail');
+    }
 }

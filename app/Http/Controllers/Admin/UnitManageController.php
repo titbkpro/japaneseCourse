@@ -9,7 +9,7 @@ use App\Http\Resources\UnitResource;
 use App\Http\Services\Admin\ComboCourseManageService;
 use App\Http\Services\Admin\SingleCourseManageService;
 use App\Http\Services\Admin\UnitManageService;
-use App\Models\UnitImport;
+use App\Models\UnitImport\VocabularySheetImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UnitManageController extends Controller
@@ -84,7 +84,7 @@ class UnitManageController extends Controller
     {
         $unitId = $request->unit_id;
         session(['unit_id' => $unitId]);
-        Excel::import(new UnitImport(), $request->file('import_file'));
+        Excel::import(new VocabularySheetImport(), $request->file('import_file'));
         return back();
     }
 }
