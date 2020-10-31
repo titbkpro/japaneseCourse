@@ -39,6 +39,20 @@ class UnitManageService extends BaseService
         $unit = Unit::find($unitId);
         if($unit) {
             $unit->update($unitInput);
+
+            if (!empty($unitInput['course_id'])) {
+                $courses = Course::find($unitInput['course_id']);
+                if ($courses) {
+                    $unit->courses()->attach($courses);
+                }
+            }
+    
+            if (!empty($unitInput['combo_id'])) {
+                $combos = Combo::find($unitInput['combo_id']);
+                if ($combos) {
+                    $unit->combos()->attach($combos);
+                }
+            }
         } else {
             throw new WebException('update_unit_error');
         }
