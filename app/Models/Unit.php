@@ -27,4 +27,8 @@ class Unit extends BaseModel
     public function combos() {
         return $this->belongsToMany(Combo::class, 'combo_units');
     }
+
+    public function lessons() {
+        return $this->hasMany(Lesson::class);
+    }
 }

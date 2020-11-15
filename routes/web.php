@@ -18,7 +18,8 @@ Auth::routes();
 Route::get('/', 'User\CourseController@course')->name('index');
 
 Route::get('/course', 'User\CourseController@course')->name('course');
-Route::get('/course-detail', 'User\CourseController@courseDetail')->name('course-detail');
+Route::get('/course-detail/{id}', 'User\CourseController@courseDetail')->name('course-detail');
+Route::get('/course-detail/{id}/lesson/{lessonId}', 'User\CourseController@lessonDetail')->name('lesson-detail');
 Route::get('/single-course', 'User\CourseController@singleCourse')->name('single-course');
 Route::get('/combo-course', 'User\CourseController@comboCourse')->name('combo-course');
 Route::get('/news', 'User\NewsPostsController@news')->name('news');

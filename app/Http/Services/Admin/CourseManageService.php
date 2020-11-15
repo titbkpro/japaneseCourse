@@ -4,6 +4,7 @@ namespace App\Http\Services\Admin;
 
 use App\Exceptions\WebException;
 use App\Models\Course;
+use App\Models\Lesson;
 use Illuminate\Support\Facades\Log;
 
 class CourseManageService extends BaseService
@@ -41,5 +42,10 @@ class CourseManageService extends BaseService
         if ($course) {
             $course->delete();
         }
+    }
+
+    public function getLessonById($lessonId)
+    {
+        return Lesson::find($lessonId);
     }
 }

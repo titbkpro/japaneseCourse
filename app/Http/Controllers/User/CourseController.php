@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Resources\CourseDetailResource;
+use App\Http\Resources\LessonDetailResource;
 use App\Http\Services\Admin\CourseManageService;
 use App\Http\Services\Admin\ComboCourseManageService;
 
@@ -41,8 +43,25 @@ class CourseController extends BaseController
         return view('combo-course', ['courses' => $comboCourses]);
     }
 
-    public function courseDetail()
+    public function courseDetail($id)
     {
-        return view('course-detail');
+        $courseDetail = $this->courseService->getCourseById($id);
+        $courseDetail = new CourseDetailResource($courseDetail);
+
+        return view('course-detail', ['course' => $courseDetail->toArray(null)]);
+    }
+
+    public function lessonDetail($id, $lessonId)
+    {
+        $courseDetail = $this->courseService->getCourseById($id);
+        $courseDetail = new CourseDetailResource($courseDetail);
+        $lesson = $this->courseService->getLessonById($lessonId);
+
+        $lesson = new LessonDetailResource($lesson);
+
+        return view('course-detail', [
+            'course' => $courseDetail->toArray(null),
+            'lessonDetail' => $lesson->toArray(null),
+        ]);
     }
 }

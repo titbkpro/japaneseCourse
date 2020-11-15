@@ -36,7 +36,7 @@
                                     </h2>
                                     <p>
                                     <div class="d-flex justify-content-between">
-                                        <a class="htc__btn btn--theme mr-2" href="#">Chi tiết</a>
+                                        <a class="htc__btn btn--theme mr-2" href="./course-detail/{{$course['id']}}">Chi tiết</a>
                                         <a class="htc__btn btn--theme" href="#"><i class="icon ion-bag mr-2"></i>Mua
                                             khoá học</a>
                                     </div>
