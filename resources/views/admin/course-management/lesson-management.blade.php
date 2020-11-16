@@ -63,7 +63,7 @@
                                             <td class=" ">{{$lesson['description']}}</td>
                                             {{--<td class=" ">{{$lesson['video']['name']}}</td>--}}
                                             <td class=" ">{{$lesson['content']}}</td>
-                                            <td class=" ">{{$lesson['unit']['name']}}</td>
+                                            <td class=" ">{{$lesson['unit'] ? $lesson['unit']['name'] : ''}}</td>
                                             <td class=" last">
                                                 <button type="button" class="btn btn-round btn-info btn-xs"
                                                         onclick='editForm(<?php echo json_encode($lesson); ?>)'>Chỉnh sửa</button>

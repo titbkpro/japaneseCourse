@@ -15,4 +15,8 @@ class Course extends BaseModel
         'description',
         'sale_off',
     ];
+
+    public function units() {
+        return $this->belongsToMany(Unit::class, 'course_units', 'course_id', 'unit_id');
+    }
 }

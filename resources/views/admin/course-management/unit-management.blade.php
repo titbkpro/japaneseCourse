@@ -59,9 +59,9 @@
                                         <tr class="even pointer">
                                             <td class=" ">{{$unit['id']}}</td>
                                             <td class=" ">{{$unit['name']}} </td>
-                                            <td class=" ">{{$unit['parent_unit']['name']}}</td>
-                                            <td class=" ">{{$unit['course']['name']}}</td>
-                                            <td class=" ">{{$unit['combo']['name']}}</td>
+                                            <td class=" ">{{$unit['parent_unit'] ? $unit['parent_unit']['name'] : ''}}</td>
+                                            <td class=" ">{{$unit['course'] ? $unit['course']['name'] : ''}}</td>
+                                            <td class=" ">{{$unit['combo'] ? $unit['combo']['name'] : ''}}</td>
                                             <td class=" last">
                                                 <button type="button" class="btn btn-round btn-info btn-xs"
                                                         onclick='editForm(<?php echo json_encode($unit); ?>)'>Chỉnh sửa</button>
