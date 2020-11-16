@@ -22,7 +22,6 @@ class VocabularySheetImport implements ToCollection
         DB::beginTransaction();
         try {
             if ($rows) {
-
                 $unitId = session('unit_id');
                 $lesson = $this->getLessonData($rows);
                 $lesson->unit_id = $unitId;
@@ -39,14 +38,17 @@ class VocabularySheetImport implements ToCollection
                         if ($rowData instanceof Exercise) {
                             if (count($questions) > 0) {
                                 $this->saveNewExercise($exercise, $questions);
-                                empty($questions);
+                                $questions = collect([]);
                             }
-                            $exercise = $this->createNewExercise($rowData, $lessonId);
+                            $exercise = $rowData;
                         }
 
                         if ($rowData instanceof Question) {
                             $questions->add($rowData);
                         }
+                    } else if (count($questions) > 0) {
+                        $this->saveNewExercise($exercise, $questions);
+                        $questions = collect([]);
                     }
                 }
             }
@@ -103,7 +105,11 @@ class VocabularySheetImport implements ToCollection
 
     private function saveNewExercise($exercise, $questions) {
         $newExercise = Exercise::create($exercise->toArray());
-        $newExercise->questions()->createMany($questions->toArray());
+        $questionIds = $questions->map(function ($question) {
+            return $question->id;
+        });
+        $newQuestions = Question::find($questionIds->toArray());
+        $newExercise->questions()->attach($newQuestions);
         return $newExercise;
     }
 

@@ -18,6 +18,6 @@ class Exercise extends BaseModel
     }
 
     public function questions() {
-        return $this->belongsToMany(Question::class);
+        return $this->belongsToMany(Question::class, 'exercise_question', 'exercise_id', 'question_id');
     }
 }
