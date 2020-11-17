@@ -59,7 +59,7 @@
                                                                         <h4 class="item-sub">{{$unitLevel5['name']}}</h4>
                                                                     </li>
                                                                     @endforeach
-                                                                    
+
                                                                     @if(empty($unitLevel4['children']))
                                                                         @foreach($unitLevel4['lesson'] as $lesson)
                                                                         <li>
@@ -80,7 +80,7 @@
                                                         </ul>
                                                     </li>
                                                     @endforeach
-                                                    
+
                                                     @if(empty($unitLevel2['children']))
                                                         @foreach($unitLevel2['lesson'] as $lesson)
                                                         <li>
@@ -91,7 +91,7 @@
                                                 </ul>
                                             </li>
                                             @endforeach
-                                            
+
                                             @if(empty($unit['children']))
                                                 @foreach($unit['lesson'] as $lesson)
                                                 <li>
@@ -137,20 +137,20 @@
                         <div class="htc__crs__tab__wrap">
                             <!-- Start Courses Details TAb -->
                             <ul class="courses__view mt--50" role="tablist">
-                                @foreach ($lessonDetail['exercises'] as $exercise)
-                                <li role="presentation" class="description active">
-                                    <a href="#test_{{$exercise['id']}}" role="tab" data-toggle="tab"
+                                @foreach ($lessonDetail['exercises'] as $exerciseKey => $exercise)
+                                <li role="presentation" class="{{ $exerciseKey == 0 ? 'description active' : 'reviews' }}">
+                                    <a href="#test_{{$exerciseKey}}" role="tab" data-toggle="tab"
                                     ><i class="icon ion-ios-list-outline"></i>{{$exercise['name']}}</a>
                                 </li>
                                 @endforeach
                             </ul>
                             <!-- End Courses Details TAb -->
                             <div class="courses__tab__content">
-                                @foreach ($lessonDetail['exercises'] as $exercise)
+                                @foreach ($lessonDetail['exercises'] as $exerciseKey => $exercise)
                                 <div
-                                    id="test_{{$exercise['id']}}"
+                                    id="test_{{$exerciseKey}}"
                                     role="tabpanel"
-                                    class="single__crs__content tab-pane fade in active clearfix"
+                                    class="single__crs__content tab-pane fade {{ $exerciseKey == 0 ? 'in active' : '' }} clearfix "
                                 >
                                     <div class="single__crs__details">
                                         <div class="test-image">
@@ -159,10 +159,10 @@
                                         </div>
                                     </div>
                                     <div class="single__crs__details">
-                                    @foreach ($exercise['questions'] as $key => $question)
-                                        <div class="test">                                            
+                                    @foreach ($exercise['questions'] as $questionKey => $question)
+                                        <div class="test">
                                             <div class="test__header">
-                                                <div class="test__number">Câu {{$key + 1}}. {{$question['question']}}</div>
+                                                <div class="test__number">Câu {{$questionKey + 1}}. {{$question['question']}}</div>
                                                 <audio class="audio" controls="">
                                                     <source
                                                         src="https://tiengnhatcolam.vn/storage/questions/May2019/1uabOoKBVNJCwJ1glkBO.mp3"
@@ -171,7 +171,7 @@
                                                 </audio>
                                             </div>
                                             <div class="choice mb-3">
-                                            @foreach ($question['answers'] as $key => $answer)
+                                            @foreach ($question['answers'] as $answerKey => $answer)
                                                 @if ($answer['is_right_answer'] === 1)
                                                 <div class="form-check pass">
                                                     <input
@@ -182,7 +182,7 @@
                                                         value="6375"
                                                     />
                                                     <label class="form-check-label" for="checkbox_1"
-                                                    >@if ($key === 0) A. @elseif ($key === 1) B. @elseif ($key === 2) C. @else D. @endif {{$answer['answer']}}</label
+                                                    >@if ($answerKey === 0) A. @elseif ($answerKey === 1) B. @elseif ($answerKey === 2) C. @else D. @endif {{$answer['answer']}}</label
                                                     >
                                                     <span class="fa fa-check"></span>
                                                 </div>
@@ -198,7 +198,7 @@
                                                     <label
                                                         class="form-check-label"
                                                         for="answers_1676_6376"
-                                                    >@if ($key === 0) A. @elseif ($key === 1) B. @elseif ($key === 2) C. @else D. @endif {{$answer['answer']}}</label
+                                                    >@if ($answerKey === 0) A. @elseif ($answerKey === 1) B. @elseif ($answerKey === 2) C. @else D. @endif {{$answer['answer']}}</label
                                                     >
                                                     <span class="fa fa-times"></span>
                                                 </div>
