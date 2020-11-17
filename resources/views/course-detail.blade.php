@@ -73,7 +73,7 @@
                                                             @if(empty($unitLevel3['children']))
                                                                 @foreach($unitLevel3['lesson'] as $lesson)
                                                                 <li>
-                                                                    <a href="#">{{$lesson['name']}}</a>
+                                                                    <a href="/course-detail/{{$course['id']}}/lesson/{{$lesson['id']}}">{{$lesson['name']}}</a>
                                                                 </li>
                                                                 @endforeach
                                                             @endif
@@ -84,7 +84,7 @@
                                                     @if(empty($unitLevel2['children']))
                                                         @foreach($unitLevel2['lesson'] as $lesson)
                                                         <li>
-                                                            <a href="#">{{$lesson['name']}}</a>
+                                                            <a href="/course-detail/{{$course['id']}}/lesson/{{$lesson['id']}}">{{$lesson['name']}}</a>
                                                         </li>
                                                         @endforeach
                                                     @endif
@@ -95,7 +95,7 @@
                                             @if(empty($unit['children']))
                                                 @foreach($unit['lesson'] as $lesson)
                                                 <li>
-                                                    <a href="#">{{$lesson['name']}}</a>
+                                                    <a href="/course-detail/{{$course['id']}}/lesson/{{$lesson['id']}}">{{$lesson['name']}}</a>
                                                 </li>
                                                 @endforeach
                                             @endif
@@ -159,6 +159,9 @@
                                         </div>
                                     </div>
                                     <div class="single__crs__details">
+                                    @php
+                                    $rightIds = []
+                                    @endphp
                                     @foreach ($exercise['questions'] as $questionKey => $question)
                                         <div class="test">
                                             <div class="test__header">
@@ -171,41 +174,39 @@
                                                 </audio>
                                             </div>
                                             <div class="choice mb-3">
-                                            @foreach ($question['answers'] as $answerKey => $answer)
-                                                @if ($answer['is_right_answer'] === 1)
-                                                <div class="form-check pass">
-                                                    <input
-                                                        class="form-check-input dapan"
-                                                        type="radio"
-                                                        name="group-check-1"
-                                                        id="checkbox_1"
-                                                        value="6375"
-                                                    />
-                                                    <label class="form-check-label" for="checkbox_1"
-                                                    >@if ($answerKey === 0) A. @elseif ($answerKey === 1) B. @elseif ($answerKey === 2) C. @else D. @endif {{$answer['answer']}}</label
-                                                    >
-                                                    <span class="fa fa-check"></span>
-                                                </div>
-                                                @else
-                                                <div class="form-check wrong">
-                                                    <input
-                                                        class="form-check-input dapan"
-                                                        type="radio"
-                                                        name="group-check-1"
-                                                        id="answers_1676_6376"
-                                                        value="6376"
-                                                    />
-                                                    <label
-                                                        class="form-check-label"
-                                                        for="answers_1676_6376"
-                                                    >@if ($answerKey === 0) A. @elseif ($answerKey === 1) B. @elseif ($answerKey === 2) C. @else D. @endif {{$answer['answer']}}</label
-                                                    >
-                                                    <span class="fa fa-times"></span>
-                                                </div>
-                                                @endif
-                                            @endforeach
+                                                @foreach ($question['answers'] as $answerKey => $answer)
+                                                    @if ($answer['is_right_answer'] === 1)
+                                                        @php
+                                                            $rightIds = [
+                                                                'question_id' => $question['id'],
+                                                                'right_answer_id' => $answer['id'],
+                                                            ]
+                                                        @endphp
+                                                    @endif
+                                                    <div class="form-check" id="answer_{{$answer['id']}}">
+                                                        <input
+                                                            class="form-check-input dapan"
+                                                            type="radio"
+                                                            name="group-check-1"
+                                                            id="checkbox_{{$answer['id']}}"
+                                                            value="{{$answer['id']}}"
+                                                        />
+                                                        <label class="form-check-label" for="checkbox_1">
+                                                        @if ($answerKey === 0) A. @elseif ($answerKey === 1) B. @elseif ($answerKey === 2) C. @else D. @endif {{$answer['answer']}}</label
+                                                        >
+                                                        <span class="fa" id="fa_{{$answer['id']}}"></span>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
-                                        @endforeach
+                                    @endforeach
+                                    <div class="test-submit">
+                                        <button class="button-submit mr-3">
+                                            Xem kết quả
+                                        </button>
+                                        <button class="button-submit mr-3">Làm lại</button>
+                                        <button class="button-submit">Xem đáp án</button>
+                                    </div>
                                     </div>
                                 </div>
                                 @endforeach
@@ -220,5 +221,13 @@
     </section>
     <!-- End Courses Details Area -->
     <div class="js-footer"></div>
+    <script>
+
+        function showResult($rightIds) {
+            $.each( rightIds, function( key, rightId) {
+                $("#answer_" + key).addClass("pass");
+            });
+      }
+    </script>
 @endsection
 

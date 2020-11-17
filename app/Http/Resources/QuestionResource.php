@@ -20,6 +20,7 @@ class QuestionResource extends JsonResource
         $dataAnswer = [];
         foreach ($answers as $answer) {
             $dataAnswer[] = [
+                'id' => $answer->id,
                 'answer' => $answer->answer,
                 'is_right_answer' => $answer->is_right_answer,
             ];
