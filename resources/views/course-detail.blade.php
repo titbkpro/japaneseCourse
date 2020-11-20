@@ -147,6 +147,7 @@
                             <!-- End Courses Details TAb -->
                             <div class="courses__tab__content">
                                 @foreach ($lessonDetail['exercises'] as $exerciseKey => $exercise)
+                                <input type="hidden" id="total_question_exercise_{{$exercise['id']}}" value="{{$exercise['total_question']}}"/>
                                 <div
                                     id="test_{{$exerciseKey}}"
                                     role="tabpanel"
@@ -159,9 +160,6 @@
                                         </div>
                                     </div>
                                     <div class="single__crs__details">
-                                    @php
-                                    $rightIds = []
-                                    @endphp
                                     @foreach ($exercise['questions'] as $questionKey => $question)
                                         <div class="test">
                                             <div class="test__header">
@@ -175,19 +173,16 @@
                                             </div>
                                             <div class="choice mb-3">
                                                 @foreach ($question['answers'] as $answerKey => $answer)
-                                                    @if ($answer['is_right_answer'] === 1)
-                                                        @php
-                                                            $rightIds = [
-                                                                'question_id' => $question['id'],
-                                                                'right_answer_id' => $answer['id'],
-                                                            ]
-                                                        @endphp
+                                                    <input type="hidden" name="{{$exercise['id']}}_answerIds[]" value="{{$answer['id']}}"/>
+                                                    @if ($answer['is_right_answer'] === 1)                                                        
+                                                    <input type="hidden" name="{{$exercise['id']}}_rightIds[]" value="{{$question['id']}},{{$answer['id']}}"/>
+                                                    <input type="hidden" name="{{$exercise['id']}}_questionIds[]" value="{{$question['id']}}"/>
                                                     @endif
                                                     <div class="form-check" id="answer_{{$answer['id']}}">
                                                         <input
                                                             class="form-check-input dapan"
                                                             type="radio"
-                                                            name="group-check-1"
+                                                            name="radio_{{$question['id']}}"
                                                             id="checkbox_{{$answer['id']}}"
                                                             value="{{$answer['id']}}"
                                                         />
@@ -201,17 +196,33 @@
                                         </div>
                                     @endforeach
                                     <div class="test-submit">
-                                        <button class="button-submit mr-3">
+                                        <button class="button-submit mr-3" data-toggle="modal" data-target="#result-modal" onclick="showResultTest(<?php echo $exercise['id']; ?>)">
                                             Xem kết quả
                                         </button>
                                         <button class="button-submit mr-3">Làm lại</button>
-                                        <button class="button-submit">Xem đáp án</button>
+                                        <button class="button-submit" onclick="showResult(<?php echo $exercise['id']; ?>)">Xem đáp án</button>
                                     </div>
                                     </div>
                                 </div>
                                 @endforeach
                             </div>
                             <!-- End Courses Details Content -->
+                            <!-- result information dialog -->
+                            <div class="modal" tabindex="-1" role="dialog" id="result-modal">
+                            <div class="modal-dialog" stype="width:600px;" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title">KẾT QUẢ</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Bạn làm đúng: <lable id="result-test"></lable> câu</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                         @endif
                     </div>
@@ -222,11 +233,94 @@
     <!-- End Courses Details Area -->
     <div class="js-footer"></div>
     <script>
-
-        function showResult($rightIds) {
-            $.each( rightIds, function( key, rightId) {
-                $("#answer_" + key).addClass("pass");
+        function showResult(exerciseId) {
+            var nameAnswerIdsInput = exerciseId + "_answerIds[]";
+            $('input[name="' + nameAnswerIdsInput + '"]').each(function() {
+                var answerId = $(this).val();
+                $("#answer_" + answerId).removeClass("wrong");
+                $("#answer_" + answerId).removeClass("pass");
+                $("#fa_" + answerId).removeClass("fa-times");
+                $("#fa_" + answerId).removeClass("fa-check");
             });
+
+            var rightIds = [];
+            var nameRighIdsInput = exerciseId + "_rightIds[]";
+            $('input[name="' + nameRighIdsInput + '"]').each(function() {
+                var id = $(this).val().split(',');
+                rightIds.push([id[0],id[1]]);
+            });
+
+            var nameQuestionIdsInput = exerciseId + "_questionIds[]";
+            $('input[name="' + nameQuestionIdsInput + '"]').each(function() {
+                var id = $(this).val();
+                var idName = "radio_" + id;
+                if($('input:radio[name="' + idName + '"]').is(":checked")) {
+                    var answerId = $('input[name="' + idName + '"]:checked').val();
+                    
+                    if (!checkExist(id, answerId, rightIds)) {
+                        $("#answer_" + answerId).addClass("wrong");
+                        $("#fa_" + answerId).addClass("fa-times");
+
+                        rightId = getAnswerIdByQuestionId(id, rightIds);
+                        $("#answer_" + rightId).addClass("pass");
+                        $("#fa_" + rightId).addClass("fa-check");
+                    } else {
+                        $("#answer_" + answerId).addClass("pass");
+                        $("#fa_" + answerId).addClass("fa-check");
+                    }
+                }
+            });
+      }
+
+      function checkExist(question, answer, array) {
+        var result = false;
+        $.each(array, function(index, value) {
+            var questionId = value[0];
+            var rightId = value[1];
+
+            if (question == questionId && rightId == answer) {
+                result = true;
+            }
+        });
+
+        return result;
+      }
+
+      function getAnswerIdByQuestionId(question, array)
+      {
+        var rightId;;
+        $.each(array, function(index, value) {
+            var questionId = value[0];
+
+            if (question == questionId) {
+                rightId = value[1];
+            }
+        });
+
+        return rightId;
+      }
+
+      function showResultTest(exerciseId)
+      {
+        var totalQuestion = $('#total_question_exercise_' + exerciseId).val();
+        var rightTotal = 0;
+        var nameRighIdsInput = exerciseId + "_rightIds[]";
+        $('input[name="' + nameRighIdsInput +'"]').each(function() {
+            var id = $(this).val().split(',');
+            var questionId = id[0];
+            var rightId = id[1];
+
+            var idName = "radio_" + questionId;
+            if($('input:radio[name="' + idName + '"]').is(":checked")) {
+                var answerId = $('input[name="' + idName + '"]:checked').val();
+                
+                if (rightId == answerId) {
+                    rightTotal += 1;
+                }
+            }
+        });
+
+        $("#result-test").text(rightTotal + '/' + totalQuestion);
       }
     </script>
 @endsection
