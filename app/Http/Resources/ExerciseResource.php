@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Exercise;
-use App\Models\Unit;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ExerciseResource extends JsonResource
@@ -17,12 +15,14 @@ class ExerciseResource extends JsonResource
     public function toArray($request)
     {
         $exercise = $this->resource;
+        $questions = QuestionResource::collection($exercise->questions)->toArray(null);
 
         return [
             'id' => $exercise->id,
             'name' => $exercise->name,
             'content' => $exercise->content,
-            'questions' => QuestionResource::collection($exercise->questions)->toArray(null),
+            'questions' => $questions,
+            'total_question' => sizeof($questions),
         ];
     }
 }
