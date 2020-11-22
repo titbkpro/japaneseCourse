@@ -21,4 +21,12 @@ class Question extends BaseModel
     public function answers() {
         return $this->hasMany(Answer::class);
     }
+
+    public function audio() {
+        return $this->belongsTo(DataFile::class, 'audio_id');
+    }
+
+    public function image() {
+        return $this->belongsTo(DataFile::class, 'image_id');
+    }
 }

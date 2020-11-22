@@ -166,7 +166,7 @@
                                                 <div class="test__number">Câu {{$questionKey + 1}}. {{$question['question']}}</div>
                                                 <audio class="audio" controls="">
                                                     <source
-                                                        src="https://tiengnhatcolam.vn/storage/questions/May2019/1uabOoKBVNJCwJ1glkBO.mp3"
+                                                        src="{{$question['audio']['url']}}"
                                                         type="audio/mpeg"
                                                     />
                                                 </audio>
@@ -174,7 +174,7 @@
                                             <div class="choice mb-3">
                                                 @foreach ($question['answers'] as $answerKey => $answer)
                                                     <input type="hidden" name="{{$exercise['id']}}_answerIds[]" value="{{$answer['id']}}"/>
-                                                    @if ($answer['is_right_answer'] === 1)                                                        
+                                                    @if ($answer['is_right_answer'] === 1)
                                                     <input type="hidden" name="{{$exercise['id']}}_rightIds[]" value="{{$question['id']}},{{$answer['id']}}"/>
                                                     <input type="hidden" name="{{$exercise['id']}}_questionIds[]" value="{{$question['id']}}"/>
                                                     @endif
@@ -256,7 +256,7 @@
                 var idName = "radio_" + id;
                 if($('input:radio[name="' + idName + '"]').is(":checked")) {
                     var answerId = $('input[name="' + idName + '"]:checked').val();
-                    
+
                     if (!checkExist(id, answerId, rightIds)) {
                         $("#answer_" + answerId).addClass("wrong");
                         $("#fa_" + answerId).addClass("fa-times");
@@ -313,7 +313,7 @@
             var idName = "radio_" + questionId;
             if($('input:radio[name="' + idName + '"]').is(":checked")) {
                 var answerId = $('input[name="' + idName + '"]:checked').val();
-                
+
                 if (rightId == answerId) {
                     rightTotal += 1;
                 }
