@@ -28,8 +28,8 @@ class QuestionResource extends JsonResource
         return [
             'id' => $question->id,
             'question' => $question->question,
-            'image_id' => $question->image_id,
-            'audio_id' => $question->audio_id,
+            'image' => $question->image,
+            'audio' => $question->audio,
             'explain_result' => $question->explain_result,
             'answers' => $dataAnswer,
         ];
